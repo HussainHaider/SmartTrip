@@ -1,0 +1,76 @@
+<div *ngIf="Length==3">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 style="text-align: center">Recommended {{ comp }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-deck">
+    <div class="card" *ngFor="let h of recommendedHotels">
+      <img class="card-img-top" src="{{ h.Image }}" alt="Card image cap">
+      <div class="cardbody">
+        <div class="row">
+          <div class="col-sm-6 col-xs-6">
+            <h5 class="card-title">{{ h.Name }}</h5>
+          </div>
+          <div class="col-sm-6 col-xs-6 alignRight">
+            <p style="float: right">PKR {{ h.Price }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-xs-6">
+            <div>
+              <span *ngFor="let str of getRepeater(h.Rating)" class="fa fa-star" aria-hidden="true"></span>
+            </div>
+            <div>
+              {{ h.Rating }}/5 (120 reviews)
+            </div>
+          </div>
+          <div class="col-sm-6 col-xs-6 alignRight">
+            <a class="btn btn-success" routerLink="/review">View Deal</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2 style="text-align: center">Popular {{ comp }}</h2>
+    </div>
+  </div>
+</div>
+
+
+<div class="card-deck">
+  <div class="card" *ngFor="let h of popularHotels">
+    <img class="card-img-top" src="{{ h.Image }}" alt="Card image cap">
+    <div class="cardbody">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h5 class="card-title">{{ h.Name }}</h5>
+        </div>
+        <div class="col-sm-6 col-xs-6 alignRight">
+          <p style="float: right">PKR {{ h.Price }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <div>
+            <span *ngFor="let str of getRepeater(h.Rating)" class="fa fa-star" aria-hidden="true"></span>
+          </div>
+          <div>
+            {{ h.Rating }}/5 (120 reviews)
+          </div>
+        </div>
+        <div class="col-sm-6 col-xs-6 alignRight" style="color: white">
+          <a class="btn btn-success" routerLink="/review">View Deal</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Add Item Form</h3> </div>
+  <div class="panel-body" style="margin-top: 2%;">
+    <form>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-6">
+            <label for="type">Type</label><br>
+            <select class='select-option' id="type" name="drop" style="width: 80%;border-radius: 10px;height: 50%" [(ngModel)]='OptionSelected' >
+              <option class='option' *ngFor='let option of Options' [value]="option">{{option}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6 col-sm-6">
+            <label for="email">City*</label>
+            <input type="email" class="form-control input-sm" id="email" placeholder=""> </div>
+        </div>
+        
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-6">
+            <label for="mobile">Price*</label>
+            <input type="text" class="form-control input-sm" id="mobile" placeholder=""> </div>
+          <div class="form-group col-md-6 col-sm-6">
+            <label for="address">Features*</label>
+            <textarea class="form-control input-sm" id="address" rows="3"></textarea>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="form-group col-md-12 col-sm-12">
+            <label for="address">Descriptions</label>
+            <textarea class="form-control input-sm" rows="3"></textarea>
+          </div>
+        </div>
+        
+        <div class="row" *ngIf="OptionSelected === 'Restaurant'">
+          <div class="form-group col-md-6 col-sm-6">
+            <label for="Rtype">Restaurant Type</label><br>
+            <select class='select-option' id="Rtype" name="drop" style="width: 80%;border-radius: 10px;height: 50%" [(ngModel)]='restaurantOptionSelected' >
+              <option class='option' *ngFor='let option of restaurantOptions' [value]="option">{{option}}</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="row" *ngIf="OptionSelected === 'Flight'">
+          <div class="form-group col-md-6 col-sm-6">
+            <label for="Ftype">Flight Type</label><br>
+            <select class='select-option' id="Ftype" name="drop" style="width: 80%;border-radius: 10px;height: 50%" [(ngModel)]='flightOptionSelected' >
+              <option class='option' *ngFor='let option of flightOptions' [value]="option">{{option}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3 col-sm-3">
+            <label>Date</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class='fa fa-calendar' aria-hidden="true"></i></span>
+              </div>
+              <input type="date" class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-sm-3">
+            <label>Time</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class='fa fa-clock-o' aria-hidden="true"></i></span>
+              </div>
+              <input type="time" class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+          </div>
+        </div>
+  
+        <div class="row" *ngIf="OptionSelected === 'Road'">
+          <div class="form-group col-md-6 col-sm-6">
+            <label for="R_type">Comapny Name</label><br>
+            <select class='select-option' id="R_type" name="drop" style="width: 80%;border-radius: 10px;height: 50%" [(ngModel)]='roadOptionsSelected' >
+              <option class='option' *ngFor='let option of roadOptions' [value]="option">{{option}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3 col-sm-3">
+            <label>Date</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class='fa fa-calendar' aria-hidden="true"></i></span>
+              </div>
+              <input type="date" class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+          </div>
+          <div class="form-group col-md-3 col-sm-3">
+            <label>Time</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class='fa fa-clock-o' aria-hidden="true"></i></span>
+              </div>
+              <input type="time" class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="form-group" style="text-align: right">
+          <input type="submit" class="btn btn-outline-success btn-lg" value="Submit" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
