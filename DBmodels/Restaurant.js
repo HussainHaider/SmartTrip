@@ -16,6 +16,10 @@ let Restaurant = mongoose.model('restaurant', {
   Location: {
     type: String,
     required: true
+  },
+  Image: {
+    type: String,
+    required: true
   }
 });
 

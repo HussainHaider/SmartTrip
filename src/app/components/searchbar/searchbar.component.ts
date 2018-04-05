@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SearchWidget} from '../SearchWidget';
+import { Hotel } from '../../Models/hotel.model';
+import {Router} from '@angular/router';
+import {HotelService} from '../../Services/Hotel/hotel-service.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -25,8 +28,8 @@ export class SearchbarComponent implements OnInit, OnChanges,  AfterViewInit  {
   childOptionSelected: any;
   public No_of_Rooms = 0;
   public mySet = new Set();
-
-  constructor() {
+  public  dt: any;
+  constructor(private router: Router, private hotelService: HotelService) {
     this.No_of_Rooms = 0;
   }
   ngAfterViewInit() {
@@ -39,9 +42,19 @@ export class SearchbarComponent implements OnInit, OnChanges,  AfterViewInit  {
   ngOnInit() {
     this.Listname = 'browsers';
   }
-  submit1(f) {
-    console.log('Sunmit');
-    console.log(f);
+  submitHotels(f) {
+    console.log('Print');
+    console.log(f.value);
+    const hotel = new Hotel(
+      f.value.hotelname, f.value.hotelname );
+    this.hotelService.GetHotels(hotel)
+      .subscribe(
+        data => {
+          console.log('DATA GET:', data);
+          this.router.navigate(['/ShowDeals', 'hotel', JSON.stringify(data)]);
+        },
+        error => console.error(error)
+      );
   }
   ngOnChanges() {
     this.imageUrl = this.Image;

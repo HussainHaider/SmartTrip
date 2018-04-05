@@ -21,7 +21,12 @@ export class SignupComponent implements OnInit {
     );
     this.userService.signup(user)
       .subscribe(
-        data => console.log(data),
+        data => {
+          console.log(data);
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userId', data.userId);
+          this.router.navigateByUrl('/hotel');
+        },
         error => console.error(error)
       );
   }

@@ -1,4 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
+import {HotelService} from '../../Services/Hotel/hotel-service.service';
+import {Hotel} from '../../Models/hotel.model';
 
 @Component({
   selector: 'app-hotel',
@@ -15,9 +17,23 @@ export class HotelComponent implements OnInit {
   public images: string[] ;
   public headings: string[] ;
   public texts: string[] ;
-
-  constructor() {
+  recommendedHotels: Hotel[];
+  popularHotels: Hotel[];
+  latitude: any;
+  longitude: any;
+  constructor(private hotelService: HotelService) {
     this.ImageValue = '/assets/images/Hotels.png';
+    console.log('calling_1');
+    this.hotelService.GetRecommendedHotels(this.latitude, this.longitude).subscribe((hotels: Hotel[]) => {
+      this.recommendedHotels = hotels;
+      console.log('calling1');
+    });
+
+    console.log('calling_2');
+    this.hotelService.GetPopularHotels(this.latitude, this.longitude).subscribe((hotels: Hotel[]) => {
+      this.popularHotels = hotels;
+      console.log('calling2');
+    });
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-<div *ngIf="Length==3">
+<div *ngIf="recommendedFlag">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -8,24 +8,24 @@
   </div>
 
   <div class="card-deck">
-    <div class="card" *ngFor="let h of recommendedHotels">
-      <img class="card-img-top" src="{{ h.Image }}" alt="Card image cap">
+    <div class="card" *ngFor="let r of recommended">
+      <img class="card-img-top" src="{{ r.Image }}" alt="Card image cap">
       <div class="cardbody">
         <div class="row">
           <div class="col-sm-6 col-xs-6">
-            <h5 class="card-title">{{ h.Name }}</h5>
+            <h5 class="card-title">{{ r.Name }}</h5>
           </div>
           <div class="col-sm-6 col-xs-6 alignRight">
-            <p style="float: right">PKR {{ h.Price }}</p>
+            <p style="float: right">PKR {{ r.Price }}</p>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-6 col-xs-6">
             <div>
-              <span *ngFor="let str of getRepeater(h.Rating)" class="fa fa-star" aria-hidden="true"></span>
+              <span *ngFor="let str of getRepeater(r.Rating)" class="fa fa-star" aria-hidden="true"></span>
             </div>
             <div>
-              {{ h.Rating }}/5 (120 reviews)
+              {{ r.Rating }}/5 (120 reviews)
             </div>
           </div>
           <div class="col-sm-6 col-xs-6 alignRight">
@@ -37,6 +37,7 @@
   </div>
 </div>
 
+<div *ngIf="popularFlag">
 <div class="container">
   <div class="row">
     <div class="col-12">
@@ -47,24 +48,24 @@
 
 
 <div class="card-deck">
-  <div class="card" *ngFor="let h of popularHotels">
-    <img class="card-img-top" src="{{ h.Image }}" alt="Card image cap">
+  <div class="card" *ngFor="let p of popular">
+    <img class="card-img-top" src="{{ p.Image }}" alt="Card image cap">
     <div class="cardbody">
       <div class="row">
         <div class="col-sm-6 col-xs-12">
-          <h5 class="card-title">{{ h.Name }}</h5>
+          <h5 class="card-title">{{ p.Name }}</h5>
         </div>
         <div class="col-sm-6 col-xs-6 alignRight">
-          <p style="float: right">PKR {{ h.Price }}</p>
+          <p style="float: right">PKR {{ p.Price }}</p>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6 col-xs-12">
           <div>
-            <span *ngFor="let str of getRepeater(h.Rating)" class="fa fa-star" aria-hidden="true"></span>
+            <span *ngFor="let str of getRepeater(p.Rating)" class="fa fa-star" aria-hidden="true"></span>
           </div>
           <div>
-            {{ h.Rating }}/5 (120 reviews)
+            {{ p.Rating }}/5 (120 reviews)
           </div>
         </div>
         <div class="col-sm-6 col-xs-6 alignRight" style="color: white">
@@ -73,4 +74,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

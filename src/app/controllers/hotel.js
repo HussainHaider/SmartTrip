@@ -3,9 +3,28 @@ const {Hotel} = require('../../../DBmodels/Hotels');
 
 
 
-exports.GetHotels = function(req, res, next)
+exports.GetALLHotels = function(req, res, next)
 {
   Hotel.find()
+    .exec(function(err, msg) {
+      if (err) {
+        return res.status(404).json({
+          message: 'Resource not found',
+          error: err
+        });
+      }
+      return res.status(200).json({
+        message: 'Success',
+        obj: msg
+      });
+    });
+}
+
+exports.GetHotels = function(req, res, next)
+{
+  console.log("Hotels");
+  console.log(req.body.Name);
+  Hotel.find({ $or: [ { Name: { '$regex' : req.body.Name } }, { Location: req.body.Name } ] })
     .exec(function(err, msg) {
       if (err) {
         return res.status(404).json({
@@ -60,7 +79,7 @@ exports.PostHotels = function(req, res, next){
 
 exports.GetPopularHotels = function(req, res, next) {
   //query with mongoose
-  console.log(req.params.loc);
+  //console.log(req.params.loc);
 
   Hotel.find({"Location": { $ne: req.params.loc },"Rating": req.params.rating}).limit(3)
     .exec(function(err, msg) {

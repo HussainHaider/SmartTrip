@@ -9,19 +9,22 @@ import {Observable} from 'rxjs/Observable';
 export class HotelService {
   private hotels: Hotel[] = [];
   private Stars = [];
+  private transformedhotels: Hotel[] = [];
+
 
   constructor(public http: Http) { }
   GetRecommendedHotels(latitude, longitude) {
     return this.http.get('http://localhost:3000/app/hotels/Lahore/5')
       .map((response: Response) => {
-        const hotels = response.json().obj;
-        console.log(hotels);
-        const transformedhotels: Hotel[] = [];
-        for (const hotel of hotels) {
-          transformedhotels.push(new Hotel(hotel.Name, hotel.Price, hotel.Rating, hotel.Location, hotel.TotalRooms, hotel.FreeRooms, hotel.Image));
+        const gethotels = response.json().obj;
+        this.transformedhotels = [];
+        console.log(gethotels);
+
+        for (const hotel of gethotels) {
+          this.transformedhotels.push(new Hotel(hotel.Name, hotel.Location, hotel.Price, hotel.Rating,  hotel.TotalRooms, hotel.FreeRooms, hotel.Image));
         }
-        this.hotels = transformedhotels;
-        return transformedhotels;
+        this.hotels = this.transformedhotels;
+        return this.transformedhotels;
       })
       .catch((error: Response) => Observable.throw(error));
   }
@@ -29,32 +32,26 @@ export class HotelService {
   GetPopularHotels(latitude, longitude) {
     return this.http.get('http://localhost:3000/app/hotels/Lahore/5/popular')
       .map((response: Response) => {
-        const hotels = response.json().obj;
-        console.log(hotels);
-        const transformedhotels: Hotel[] = [];
-        for (const hotel of hotels) {
-          transformedhotels.push(new Hotel(hotel.Name, hotel.Price, hotel.Rating, hotel.Location, hotel.TotalRooms, hotel.FreeRooms, hotel.Image));
+        const gethotels = response.json().obj;
+        this.transformedhotels = [];
+        console.log(gethotels);
+
+        for (const hotel of gethotels) {
+          this.transformedhotels.push(new Hotel(hotel.Name, hotel.Location, hotel.Price, hotel.Rating, hotel.TotalRooms, hotel.FreeRooms, hotel.Image));
         }
-        this.hotels = transformedhotels;
-        return transformedhotels;
+        this.hotels = this.transformedhotels;
+        return this.transformedhotels;
       })
       .catch((error: Response) => Observable.throw(error));
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  GetHotels(hotel: Hotel) {
+    const body = JSON.stringify(hotel);
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post('http://localhost:3000/app/hotels', body, {headers: headers})
+      .map((response: Response) => response.json())
+      .catch((error: Response) => Observable.throw(error.json()));
+  }
 
   getCoords(latitude, longitude) {
     console.log('Coords2');

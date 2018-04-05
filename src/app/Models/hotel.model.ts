@@ -9,7 +9,7 @@ export class Hotel {
   Image: string;
   Stars: any;
 
-  constructor(Name: string, Price: string, Rating: number, Location: string, TotalRooms: number, FreeRooms: number, Image: string) {
+  constructor(Name: string, Location: string, Price?: string, Rating?: number, TotalRooms?: number, FreeRooms?: number, Image?: string) {
     this.Name = Name;
     this.Price = Price;
     this.Rating = Rating;

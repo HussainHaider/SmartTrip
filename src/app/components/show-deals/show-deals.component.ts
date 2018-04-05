@@ -36,6 +36,9 @@ export class ShowDealsComponent implements OnInit {
       console.log(params.get('name'));
       this.Name = params.get('name');
     });
+    this.router.paramMap.subscribe(params => {
+      console.log(params.get('data'));
+    });
   }
   @HostListener('window:resize', ['$event'])
   onResize(event) {

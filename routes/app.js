@@ -3,7 +3,8 @@ let router = express.Router();
 let {mongoose} = require('../DBmodels/mongoose');
 let {Todo} = require('../DBmodels/todo');
 
-const home = require('../src/app/controllers/hotel');
+const hotel = require('../src/app/controllers/hotel');
+const restaurant = require('../src/app/controllers/restaurant');
 const User = require('../src/app/controllers/User');
 
 /* GET home page. */
@@ -29,12 +30,18 @@ router.get('/todos', (req, res) => {
 
 
 
-router.get('/hotels', home.GetHotels);
-router.get('/hotels/:loc/:rating', home.GetRecommendedHotels);
-router.get('/hotels/:loc/:rating/:type', home.GetPopularHotels);
-router.post('/hotels', home.PostHotels);
+router.get('/hotels/all', hotel.GetALLHotels);
+router.post('/hotels', hotel.GetHotels);
+router.get('/hotels/:loc/:rating', hotel.GetRecommendedHotels);
+router.get('/hotels/:loc/:rating/:type', hotel.GetPopularHotels);
+router.post('/hotels', hotel.PostHotels);
+
 router.post('/signUp', User.CreateUser);
 router.post('/signIn', User.AccessToUser);
 
+router.get('/restaurants', restaurant.GetRestaurants);
+router.get('/restaurants/:loc/:rating', restaurant.GetRecommendedRestaurants);
+router.get('/restaurants/:loc/:rating/:type', restaurant.GetPopularRestaurants);
+router.post('/restaurants', restaurant.PostRestaurants);
 
 module.exports = router;
