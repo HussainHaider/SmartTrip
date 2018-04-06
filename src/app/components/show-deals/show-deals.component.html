@@ -17,7 +17,7 @@
   <div class="row">
     <div class="col-sm-3" id="sidebar" [ngClass]="{ 'class1':isSelect }" (window:resize)="onResize($event)">
       <div class="list-group">
-        
+
         <mat-accordion>
           <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
             <mat-expansion-panel-header>
@@ -25,9 +25,9 @@
                 <h4 class="font-italic">Price per night</h4>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            
+
             <nouislider [connect]="true" [min]="0" [max]="15000" [step]="1" [(ngModel)]="someRange" (ngModelChange)="onChange($event)"></nouislider>
-            
+
             <form class="form-inline">
               <input type="text" name="minValue" id="company" [(ngModel)]="min" style="width: 50px;text-align: center"/>
               <div style="width: 55%;"></div>
@@ -35,8 +35,8 @@
             </form>
           </mat-expansion-panel>
         </mat-accordion>
-        
-        
+
+
         <mat-accordion>
           <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
             <mat-expansion-panel-header>
@@ -44,7 +44,7 @@
                 <h4 class="font-italic">{{ Name }} Class</h4>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            
+
             <form>
               <div class="checkbox">
                 <label><input type="checkbox" name="check" [ngModel]="fiveStarFilter" (ngModelChange)="onFiveFilterChange($event)">5 Star</label>
@@ -56,12 +56,12 @@
                 <label><input type="checkbox" name="check" [ngModel]="threeStarFilter" (ngModelChange)="onThreeFilterChange($event)">3 Star</label>
               </div>
             </form>
-          
-          
+
+
           </mat-expansion-panel>
         </mat-accordion>
-      
-      
+
+
       </div>
     </div>
     <div class="col-sm-9">
@@ -72,11 +72,11 @@
             <img src="http://i.stack.imgur.com/25Rl3.jpg" class="img-rounded" alt="Cinq Tre" width="100%" height="100%">
           </div>
           <div class="col-sm-4" style="border-right: 1px solid #a6a6a6;margin-top: 2%;margin-bottom: 2%;width: 100%">
-            <h3>{{ d.name }} {{ Name }}</h3>
+            <h3>{{ d.Name }}</h3>
             <h3 style="text-align: right">PKR {{ d.Price }}</h3>
             <a class="btn btn-success btn-lg reviewLink" routerLink="/review">View Deals</a>
           </div>
-          
+
           <div class="col-sm-4" style="margin-top: 5%">
             <p>72 reviews</p>
             <p>Free parking</p>

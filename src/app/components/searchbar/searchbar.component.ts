@@ -3,6 +3,7 @@ import {SearchWidget} from '../SearchWidget';
 import { Hotel } from '../../Models/hotel.model';
 import {Router} from '@angular/router';
 import {HotelService} from '../../Services/Hotel/hotel-service.service';
+import {DataService} from '../../Services/Data/data.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -29,7 +30,7 @@ export class SearchbarComponent implements OnInit, OnChanges,  AfterViewInit  {
   public No_of_Rooms = 0;
   public mySet = new Set();
   public  dt: any;
-  constructor(private router: Router, private hotelService: HotelService) {
+  constructor(private router: Router, private hotelService: HotelService, private dataService: DataService) {
     this.No_of_Rooms = 0;
   }
   ngAfterViewInit() {
@@ -50,8 +51,9 @@ export class SearchbarComponent implements OnInit, OnChanges,  AfterViewInit  {
     this.hotelService.GetHotels(hotel)
       .subscribe(
         data => {
-          console.log('DATA GET:', data);
-          this.router.navigate(['/ShowDeals', 'hotel', JSON.stringify(data)]);
+          //console.log('DATA GET:', data);
+          this.dataService.data_things = JSON.stringify(data);
+          this.router.navigate(['/ShowDeals', 'hotel']);
         },
         error => console.error(error)
       );

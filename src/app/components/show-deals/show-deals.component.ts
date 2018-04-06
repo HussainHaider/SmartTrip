@@ -1,5 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {DataService} from '../../Services/Data/data.service';
 
 @Component({
   selector: 'app-show-deals',
@@ -19,16 +20,10 @@ export class ShowDealsComponent implements OnInit {
   threeStarFilter = false;
 
   dbtimeslots = [];
-  collection = [
-    {'name': 'Rose Palace', 'Price': 5000, 'Class': '3'},
-    {'name': 'Pearl Continental', 'Price': 15000, 'Class': '5'},
-    {'name': 'Avari', 'Price': 10000, 'Class': '4'},
-    {'name': 'Luxus Grand', 'Price': 2000, 'Class': '3'}
-  ];
+  collection = [];
   p = 1;
 
-  constructor(private router: ActivatedRoute) {
-    this.dbtimeslots = this.collection;
+  constructor(private router: ActivatedRoute, private dataService: DataService) {
   }
 
   ngOnInit() {
@@ -36,9 +31,9 @@ export class ShowDealsComponent implements OnInit {
       console.log(params.get('name'));
       this.Name = params.get('name');
     });
-    this.router.paramMap.subscribe(params => {
-      console.log(params.get('data'));
-    });
+    this.collection = this.dataService.data_things['obj'];
+    console.log('Getting Data', this.collection);
+    this.dbtimeslots = this.collection;
   }
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -73,7 +68,7 @@ export class ShowDealsComponent implements OnInit {
         coll.push(this.dbtimeslots[i]);
       }
     }
-    if (this.max === 15000 && this.min === 0) {
+    if (this.max.toString() === '15000' && this.min.toString() === '0') {
       this.dbtimeslots = this.collection;
     } else {
       this.dbtimeslots = coll;
@@ -98,31 +93,31 @@ export class ShowDealsComponent implements OnInit {
     } else {
       if (this.fiveStarFilter === true && this.fourStarFilter === true) {
         this.dispose();
-        this.add('5');
-        this.add('4');
+        this.add(5);
+        this.add(4);
       } else if (this.fiveStarFilter === true && this.threeStarFilter === true) {
         this.dispose();
-        this.add('5');
-        this.add('3');
+        this.add(5);
+        this.add(3);
       } else if (this.threeStarFilter === true && this.fourStarFilter === true) {
         this.dispose();
-        this.add('3');
-        this.add('4');
+        this.add(3);
+        this.add(4);
       } else if (this.fiveStarFilter === true ) {
         this.dispose();
-        this.add('5');
+        this.add(5);
       } else if (this.fourStarFilter === true ) {
         this.dispose();
-        this.add('4');
+        this.add(4);
       } else if (this.threeStarFilter === true ) {
         this.dispose();
-        this.add('3');
+        this.add(3);
       }
     }
   }
   add(str) {
     for (let i = 0; i < this.collection.length; i++) {
-      if (this.collection[i].Class === str) {
+      if (this.collection[i].Rating === str) {
         this.dbtimeslots.push(this.collection[i]);
       }
     }
