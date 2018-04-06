@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from '../../Services/Data/data.service';
 
@@ -7,7 +7,7 @@ import {DataService} from '../../Services/Data/data.service';
   templateUrl: './show-deals.component.html',
   styleUrls: ['./show-deals.component.css']
 })
-export class ShowDealsComponent implements OnInit {
+export class ShowDealsComponent implements OnInit, OnChanges {
   public isSelect = false;
   public isCol = false;
   public Name;
@@ -15,6 +15,8 @@ export class ShowDealsComponent implements OnInit {
   someRange = [ 0, 15000];
   max = 15000;
   min = 0;
+  public isHotel = false;
+  public isRestaurant = false;
   fiveStarFilter = false;
   fourStarFilter = false;
   threeStarFilter = false;
@@ -26,14 +28,23 @@ export class ShowDealsComponent implements OnInit {
   constructor(private router: ActivatedRoute, private dataService: DataService) {
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     this.router.paramMap.subscribe(params => {
       console.log(params.get('name'));
       this.Name = params.get('name');
     });
+  }
+
+  ngOnInit() {
+
     this.collection = this.dataService.data_things['obj'];
     console.log('Getting Data', this.collection);
     this.dbtimeslots = this.collection;
+    if (this.collection[0].Type) {
+      this.isRestaurant = true;
+    } else {
+      this.isHotel = true;
+    }
   }
   @HostListener('window:resize', ['$event'])
   onResize(event) {

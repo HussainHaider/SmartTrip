@@ -34,14 +34,15 @@ router.get('/hotels/all', hotel.GetALLHotels);
 router.post('/hotels', hotel.GetHotels);
 router.get('/hotels/:loc/:rating', hotel.GetRecommendedHotels);
 router.get('/hotels/:loc/:rating/:type', hotel.GetPopularHotels);
-router.post('/hotels', hotel.PostHotels);
+router.post('/postHotels', hotel.PostHotels);
 
 router.post('/signUp', User.CreateUser);
 router.post('/signIn', User.AccessToUser);
 
-router.get('/restaurants', restaurant.GetRestaurants);
+router.get('/restaurants/all', restaurant.GetALLRestaurants);
+router.post('/restaurants', restaurant.GetRestaurants);
 router.get('/restaurants/:loc/:rating', restaurant.GetRecommendedRestaurants);
 router.get('/restaurants/:loc/:rating/:type', restaurant.GetPopularRestaurants);
-router.post('/restaurants', restaurant.PostRestaurants);
+router.post('/postRestaurants', restaurant.PostRestaurants);
 
 module.exports = router;

@@ -60,26 +60,26 @@
         </div>
       </form>
 
-      <form class="form" *ngIf="isRestaurant">
-        <h3 style="color: white;text-align: center;">Find your perfect  restaurant</h3>
+      <form class="form" *ngIf="isRestaurant" #f2="ngForm" (ngSubmit)="submitRestaurants(f2)">
+        <h3 style="color: white;text-align: center;">Find your perfect restaurant</h3>
         <div class="form-group">
           <div class="container">
             <div class="row">
               <div class="col-md-8">
                 <label for="inputAddress2">City, Restaurant Name</label>
-                <input type="text" class="form-control" placeholder="Name" (keyup)="onKey($event)">
+                <input type="text" class="form-control" placeholder="Name" ngModel name="restaurantName">
 
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <label for="inputAddress2">Restaurant Type</label><br>
-                <select class='select-option' name="drop" required [(ngModel)]='rest_OptionSelected' (ngModelChange)='onOptionsSelected($event)'>
+                <select class='select-option' name="type" required [(ngModel)]='rest_OptionSelected' (ngModelChange)='onOptionsSelected($event)'>
                   <option class='option' *ngFor='let option of Restaurantoptions' [value]="option">{{option}}</option>
                 </select>
               </div>
               <div class="col-md-4 searchbtn" style="text-align: left">
-                <a class="btn btn-info" [routerLink]="['/ShowDeals','Restaurant']">Search</a>
+                <button type="submit" class="btn btn-info">Search</button>
               </div>
             </div>
           </div>

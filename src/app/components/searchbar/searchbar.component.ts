@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SearchWidget} from '../SearchWidget';
 import { Hotel } from '../../Models/hotel.model';
+import {Restaurant} from '../../Models/restaurant.model';
 import {Router} from '@angular/router';
 import {HotelService} from '../../Services/Hotel/hotel-service.service';
 import {DataService} from '../../Services/Data/data.service';
+import {RestaurantService} from '../../Services/Restaurant/restaurant.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -30,7 +32,7 @@ export class SearchbarComponent implements OnInit, OnChanges,  AfterViewInit  {
   public No_of_Rooms = 0;
   public mySet = new Set();
   public  dt: any;
-  constructor(private router: Router, private hotelService: HotelService, private dataService: DataService) {
+  constructor(private router: Router, private hotelService: HotelService, private dataService: DataService, private restaurantService: RestaurantService) {
     this.No_of_Rooms = 0;
   }
   ngAfterViewInit() {
@@ -45,18 +47,38 @@ export class SearchbarComponent implements OnInit, OnChanges,  AfterViewInit  {
   }
   submitHotels(f) {
     console.log('Print');
+    console.log(f.value.hotelname);
     console.log(f.value);
-    const hotel = new Hotel(
-      f.value.hotelname, f.value.hotelname );
-    this.hotelService.GetHotels(hotel)
-      .subscribe(
-        data => {
-          //console.log('DATA GET:', data);
-          this.dataService.data_things = JSON.stringify(data);
-          this.router.navigate(['/ShowDeals', 'hotel']);
-        },
-        error => console.error(error)
-      );
+    if (f.value.hotelname) {
+      const hotel = new Hotel(
+        f.value.hotelname, f.value.hotelname );
+      this.hotelService.GetHotels(hotel)
+        .subscribe(
+          data => {
+
+            this.dataService.data_things = JSON.stringify(data);
+            this.router.navigate(['/ShowDeals', 'hotel']);
+          },
+          error => console.error(error)
+        );
+    }
+  }
+  submitRestaurants(f) {
+    console.log('Print');
+    console.log(f.value);
+    if (f.value.restaurantName) {
+        const restaurant = new Restaurant(
+          f.value.restaurantName, f.value.type, f.value.restaurantName );
+        this.restaurantService.GetRestaurants(restaurant)
+          .subscribe(
+            data => {
+
+              this.dataService.data_things = JSON.stringify(data);
+              this.router.navigate(['/ShowDeals', 'Restaurant']);
+            },
+            error => console.error(error)
+          );
+      }
   }
   ngOnChanges() {
     this.imageUrl = this.Image;

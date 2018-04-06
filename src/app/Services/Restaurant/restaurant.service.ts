@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Headers, Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Restaurant} from '../../Models/restaurant.model';
 
@@ -13,10 +13,11 @@ export class RestaurantService {
     return this.http.get('http://localhost:3000/app/restaurants/Lahore/5')
       .map((response: Response) => {
         const getRestaurant = response.json().obj;
+        this.transformedRestaurants = [];
         console.log(getRestaurant);
 
         for (const restaurant of getRestaurant) {
-          this.transformedRestaurants.push(new Restaurant(restaurant.Name, restaurant.ImpThings, restaurant.Rating, restaurant.Location, restaurant.Image));
+          this.transformedRestaurants.push(new Restaurant(restaurant.Name, restaurant.Type, restaurant.Location, restaurant.Rating, restaurant.ImpThings, restaurant.Image));
         }
         this.Restaurants = this.transformedRestaurants;
         return this.transformedRestaurants;
@@ -28,10 +29,11 @@ export class RestaurantService {
     return this.http.get('http://localhost:3000/app/restaurants/Lahore/5/popular')
       .map((response: Response) => {
         const getRestaurant = response.json().obj;
+        this.transformedRestaurants = [];
         console.log(getRestaurant);
 
         for (const restaurant of getRestaurant) {
-          this.transformedRestaurants.push(new Restaurant(restaurant.Name, restaurant.ImpThings, restaurant.Rating, restaurant.Location, restaurant.Image));
+          this.transformedRestaurants.push(new Restaurant(restaurant.Name, restaurant.Type, restaurant.Location, restaurant.Rating, restaurant.ImpThings, restaurant.Image));
         }
         this.Restaurants = this.transformedRestaurants;
         return this.transformedRestaurants;
@@ -39,6 +41,13 @@ export class RestaurantService {
       .catch((error: Response) => Observable.throw(error));
   }
 
+  GetRestaurants(restaurant: Restaurant) {
+    const body = JSON.stringify(restaurant);
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post('http://localhost:3000/app/restaurants', body, {headers: headers})
+      .map((response: Response) => response.json())
+      .catch((error: Response) => Observable.throw(error.json()));
+  }
 
   getCoords(latitude, longitude) {
     console.log('Coords2');

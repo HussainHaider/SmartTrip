@@ -2,9 +2,32 @@
 const {Restaurant} = require('../../../DBmodels/Restaurant');
 
 
-exports.GetRestaurants = function(req, res, next)
+exports.GetALLRestaurants = function(req, res, next)
 {
   Restaurant.find()
+    .exec(function(err, msg) {
+      if (err) {
+        return res.status(404).json({
+          message: 'Resource not found',
+          error: err
+        });
+      }
+      return res.status(200).json({
+        message: 'Success',
+        obj: msg
+      });
+    });
+}
+
+exports.GetRestaurants = function(req, res, next)
+{
+  console.log("Restaurants");
+  console.log(req.body.Name);
+
+  Restaurant.find({  $and : [
+      { $or: [ { Name: { '$regex' : req.body.Name } }, { Location: req.body.Name }] },
+      { Type: req.body.Type }
+    ] })
     .exec(function(err, msg) {
       if (err) {
         return res.status(404).json({
@@ -44,6 +67,8 @@ exports.PostRestaurants = function(req, res, next){
     Name: req.body.Name,
     ImpThings: req.body.ImpThings,
     Rating: req.body.Rating,
+    Location: req.body.Location,
+    Type: req.body.Type,
     Image: req.body.Image
   });
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Hotel} from '../../Models/hotel.model';
 import {Restaurant} from '../../Models/restaurant.model';
-import {RestaurantService} from "../../Services/Restaurant/restaurant.service";
+import {RestaurantService} from '../../Services/Restaurant/restaurant.service';
 
 @Component({
   selector: 'app-restaurant',
@@ -29,12 +29,12 @@ export class RestaurantComponent implements OnInit {
     this.headings = ['Find the best places to eat', 'See the latest reviews', 'Reserve a table'];
     this.texts = [' 4.3 million restaurants - everything from street food to fine dining', 'Millions of restaurant reviews and photos from our global travel community', 'Use FlyScore to compare flights, then book the one that is right for you'];
 
-    this.restaurantService.GetRecommendedRestaurants(this.latitude, this.longitude).subscribe((hotels: Restaurant[]) => {
-      this.recommendedRestaurants = hotels;
+    this.restaurantService.GetRecommendedRestaurants(this.latitude, this.longitude).subscribe((restaurants: Restaurant[]) => {
+      this.recommendedRestaurants = restaurants;
     });
 
-    this.restaurantService.GetPopularRestaurants(this.latitude, this.longitude).subscribe((eestaurants: Restaurant[]) => {
-      this.popularRestaurants = eestaurants;
+    this.restaurantService.GetPopularRestaurants(this.latitude, this.longitude).subscribe((restaurants: Restaurant[]) => {
+      this.popularRestaurants = restaurants;
     });
   }
 
