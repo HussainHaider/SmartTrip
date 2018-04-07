@@ -36,6 +36,10 @@ let Flight = mongoose.model('flight', {
   Time: {
     type: String,
     required: true
+  },
+  Image: {
+    type: String,
+    required: true
   }
 });
 

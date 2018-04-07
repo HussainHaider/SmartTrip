@@ -6,6 +6,7 @@ let {Todo} = require('../DBmodels/todo');
 const hotel = require('../src/app/controllers/hotel');
 const restaurant = require('../src/app/controllers/restaurant');
 const User = require('../src/app/controllers/User');
+const Flight = require('../src/app/controllers/flights');
 
 /* GET home page. */
 router.post('/todos', (req, res) => {
@@ -44,5 +45,11 @@ router.post('/restaurants', restaurant.GetRestaurants);
 router.get('/restaurants/:loc/:rating', restaurant.GetRecommendedRestaurants);
 router.get('/restaurants/:loc/:rating/:type', restaurant.GetPopularRestaurants);
 router.post('/postRestaurants', restaurant.PostRestaurants);
+
+
+router.get('/flights/all', Flight.GetALLFlights);
+router.post('/flights', Flight.GetFlight);
+router.get('/flights/:src/:class/:type', Flight.GetPopularFlights);
+router.post('/postFlights', Flight.PostFlights);
 
 module.exports = router;
