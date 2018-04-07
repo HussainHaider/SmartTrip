@@ -17,7 +17,7 @@ export class RestaurantService {
         console.log(getRestaurant);
 
         for (const restaurant of getRestaurant) {
-          this.transformedRestaurants.push(new Restaurant(restaurant.Name, restaurant.Type, restaurant.Location, restaurant.Rating, restaurant.ImpThings, restaurant.Image));
+          this.transformedRestaurants.push(new Restaurant(restaurant.Name, restaurant.Type, restaurant.Location, restaurant.Rating, restaurant.ImpThings, restaurant.Image, restaurant._id));
         }
         this.Restaurants = this.transformedRestaurants;
         return this.transformedRestaurants;
@@ -33,7 +33,7 @@ export class RestaurantService {
         console.log(getRestaurant);
 
         for (const restaurant of getRestaurant) {
-          this.transformedRestaurants.push(new Restaurant(restaurant.Name, restaurant.Type, restaurant.Location, restaurant.Rating, restaurant.ImpThings, restaurant.Image));
+          this.transformedRestaurants.push(new Restaurant(restaurant.Name, restaurant.Type, restaurant.Location, restaurant.Rating, restaurant.ImpThings, restaurant.Image, restaurant._id));
         }
         this.Restaurants = this.transformedRestaurants;
         return this.transformedRestaurants;

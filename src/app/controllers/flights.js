@@ -22,8 +22,10 @@ exports.GetALLFlights = function(req, res, next)
 exports.GetFlight = function(req, res, next)
 {
   console.log("Flight");
+  console.log(req.body.Source);
+  console.log(req.body.Destination);
 
-  Flight.find({ $or: [ { Source: { '$regex' : req.body.Source } },{ Destination: { '$regex' : req.body.Destination } }, { Class: req.body.Class }, { Date: { $gte: req.body.Date } } ] })
+  Flight.find({ $and: [ { Source: { '$regex' : req.body.Source } },{ Destination: { '$regex' : req.body.Destination } }, { Class: req.body.Class } ] })
     .exec(function(err, msg) {
       if (err) {
         return res.status(404).json({

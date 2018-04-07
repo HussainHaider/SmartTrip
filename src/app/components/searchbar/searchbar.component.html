@@ -93,26 +93,26 @@
           <!-- pills tabs -->
           <tabset [pills]="true">
             <tab title="Flight">
-              <form class="form">
+              <form class="form" #f3="ngForm" (ngSubmit)="submitFlights(f3)">
                 <div class="form-group row" style="margin-top: 3%;">
                   <div class="col-md-4">
                     <div class="input-group"> <span class="input-group-text"><i class="fa fa-plane" aria-hidden="true"></i></span>
-                      <input type="text" class="form-control" placeholder="Departure airport"> </div>
+                      <input type="text" class="form-control" placeholder="Departure airport" ngModel name="depart"> </div>
                   </div>
                   <div class="col-md-4">
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class='fa fa-calendar' aria-hidden="true"></i></span>
                       </div>
-                      <input type="date" class="form-control">
+                      <input type="date" class="form-control" ngModel name="DepartDate">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="input-group">
-                      <select class="form-control" style="border-radius: 5%;width: 140%;">
-                        <option value="Eclass">Economy class</option>
-                        <option value="Bclas">Buniess class</option>
-                        <option value="Fclas">First class</option>
+                      <select class="form-control" style="border-radius: 5%;width: 140%;" ngModel name="DepartClass">
+                        <option value="Economy">Economy class</option>
+                        <option value="Business">Business class</option>
+                        <option value="First">First class</option>
                       </select>
                     </div>
                   </div>
@@ -120,18 +120,18 @@
                 <div class="form-group row">
                   <div class="col-md-4">
                     <div class="input-group"> <span class="input-group-text"><i class="fa fa-plane" aria-hidden="true"></i></span>
-                      <input type="text" class="form-control" placeholder="Arrival airport"> </div>
+                      <input type="text" class="form-control" placeholder="Arrival airport" ngModel name="arrival"> </div>
                   </div>
                   <div class="col-md-4">
                     <div class="input-group"> <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                      <input type="date" class="form-control" placeholder="Returning"> </div>
+                      <input type="date" class="form-control" placeholder="Returning" ngModel name="arrivalDate"> </div>
                   </div>
                   <div class="col-md-4">
                     <div class="input-group">
-                      <select class="form-control" style="border-radius: 5%;width: 140%;">
-                        <option value="Eclass">Economy class</option>
-                        <option value="Bclas">Buniess class</option>
-                        <option value="Fclas">First class</option>
+                      <select class="form-control" style="border-radius: 5%;width: 140%;" ngModel name="ArrivalClass">
+                        <option value="Economy">Economy class</option>
+                        <option value="Business">Business class</option>
+                        <option value="First">First class</option>
                       </select>
                     </div>
                   </div>
@@ -140,30 +140,30 @@
                 <div class="row">
                   <div class="col-2">
                     <label class="radio">
-                      <input type="radio" name="radio" value="Round Trip">
+                      <input type="radio" name="Round_radio" value="Round Trip" ngModel>
                       <span class="sp">Round Trip</span>
                     </label>
                   </div>
                   <div class="col-2">
                     <label class="radio">
-                      <input type="radio" name="radio" value="One Way">
+                      <input type="radio" name="One_Way_radio" value="One Way" ngModel>
                       <span class="sp">One Way</span>
                     </label>
                   </div>
                   <div class="col-3">
                     <label for="inputAddress2">Adult</label>
-                    <select class='select-option' name="drop" required [(ngModel)]='adultOptionSelected' (ngModelChange)='onOptionsSelected($event)' style="height: 80%">
+                    <select class='select-option' name="Adultdrop" required [(ngModel)]='adultOptionSelected' (ngModelChange)='onOptionsSelected($event)' style="height: 80%">
                       <option class='option' *ngFor='let option of Seatsoptions' [value]="option">{{option}}</option>
                     </select>
                   </div>
                   <div class="col-3">
                     <label for="inputAddress2">Child</label>
-                    <select class='select-option' name="drop" required [(ngModel)]='childOptionSelected' (ngModelChange)='onOptionsSelected($event)' style="height: 80%">
+                    <select class='select-option' name="Childdrop" required [(ngModel)]='childOptionSelected' (ngModelChange)='onOptionsSelected($event)' style="height: 80%">
                       <option class='option' *ngFor='let option of Seatsoptions' [value]="option">{{option}}</option>
                     </select>
                   </div>
                   <div class="col-2" style="text-align: center">
-                    <a class="btn btn-info" [routerLink]="['/ShowDeals','flight']">Search</a>
+                    <button type="submit" class="btn btn-info" >Search</button>
                   </div>
                 </div>
               </form>

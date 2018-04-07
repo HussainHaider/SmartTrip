@@ -48,7 +48,7 @@ export class NavBarComponent implements OnInit {
     this.userService.signin(user)
       .subscribe(
         data => {
-          console.log('hello3');
+          console.log('DATA is here:', JSON.stringify(data));
           localStorage.setItem('token', data.token);
           localStorage.setItem('userId', data.userId);
           this.modalReference.close();

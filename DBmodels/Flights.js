@@ -30,7 +30,7 @@ let Flight = mongoose.model('flight', {
     required: true
   },
   Date: {
-    type: Date,
+    type: String,
     required: true
   },
   Time: {

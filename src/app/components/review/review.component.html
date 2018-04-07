@@ -4,7 +4,6 @@
     <div class="row"   style="margin-right: 0px;">
       <div class="col-6">
         <h2 style="margin-top: 100px;padding-left: 0px">Hotel Name</h2>
-        <p><span *ngFor="let star of stars" class="fa fa-star-o"></span>32 reviews</p>
         <P>100 C-ii, Lahore 54660, Pakistan</P>
         <a routerLink="/payment" class="btn" style="background-color: #FFC107;color: black">Reserve</a>
       </div>
@@ -18,7 +17,7 @@
   <div class="container-fuild">
     <div class="row"   style="margin-right: 0px;">
       <div class="col-6">
-        <h3>Reviews (36)</h3>
+        <h3>Reviews ({{ reviewsNumbers }})</h3>
       </div>
       <div class="col-6">
         <button class="btn btn-success" (click)="open(content)">Write Review</button>
@@ -35,20 +34,11 @@
     <div class="col-sm-3">
       <div class="rating-block">
         <h4>Average user rating</h4>
-        <h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
-        <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+        <h2 class="bold padding-bottom-7">{{avgRating}} <small>/ 5</small></h2>
+        <button type="button" style="margin-left: 2px;" class="btn btn-warning btn-sm" aria-label="Left Align" *ngFor="let str of getAvgRating(0)">
           <span class="fa fa-star-o" aria-hidden="true"></span>
         </button>
-        <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-          <span class="fa fa-star-o" aria-hidden="true"></span>
-        </button>
-        <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-          <span class="fa fa-star-o" aria-hidden="true"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-          <span class="fa fa-star-o" aria-hidden="true"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+        <button type="button" style="margin-left: 2px;" class="btn btn-grey btn-sm" aria-label="Left Align" *ngFor="let str of getAvgRating(5)">
           <span class="fa fa-star-o" aria-hidden="true"></span>
         </button>
       </div>
@@ -66,7 +56,7 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">1</div>
+        <div class="pull-right" style="margin-left:10px;">{{ calculateFiveStars }}</div>
       </div>
       <div class="pull-left">
         <div class="pull-left" style="width:35px; line-height:1;">
@@ -79,7 +69,7 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">1</div>
+        <div class="pull-right" style="margin-left:10px;">{{ calculateFourStars }}</div>
       </div>
       <div class="pull-left">
         <div class="pull-left" style="width:35px; line-height:1;">
@@ -92,7 +82,7 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">0</div>
+        <div class="pull-right" style="margin-left:10px;">{{ calculateThreeStars }}</div>
       </div>
       <div class="pull-left">
         <div class="pull-left" style="width:35px; line-height:1;">
@@ -105,7 +95,7 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">0</div>
+        <div class="pull-right" style="margin-left:10px;">{{ calculateTwoStars }}</div>
       </div>
       <div class="pull-left">
         <div class="pull-left" style="width:35px; line-height:1;">
@@ -118,7 +108,7 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">0</div>
+        <div class="pull-right" style="margin-left:10px;">{{ calculateOneStars }}</div>
       </div>
     </div>
   </div>
@@ -127,32 +117,23 @@
     <div class="col-sm-10">
       <hr/>
       <div class="review-block">
-        <div *ngFor="let str of stars" class="row">
+        <div *ngFor="let str of collectionReview" class="row">
           <div class="col-sm-3">
             <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
             <div class="review-block-name"><a href="#">nktailor</a></div>
-            <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+            <div class="review-block-date">{{ str.Date }}<br/>1 day ago</div>
           </div>
           <div class="col-sm-9">
             <div class="review-block-rate">
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+              <button type="button" style="margin-left: 2px;" class="btn btn-success btn-xs" aria-label="Left Align"  *ngFor="let str of getRepeater(str.Rating)">
                 <span class="fa fa-star" aria-hidden="true"></span>
               </button>
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+              <button type="button" style="margin-left: 2px;" class="btn btn-danger btn-xs" aria-label="Left Align"  *ngFor="let str of getRepeater(5-str.Rating)">
                 <span class="fa fa-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="fa fa-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                <span class="fa fa-star-o" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                <span class="fa fa-star-o" aria-hidden="true"></span>
               </button>
             </div>
-            <div class="review-block-title">this was nice in buy</div>
-            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
+            <div class="review-block-title">{{ str.Title }}</div>
+            <div class="review-block-description">{{ str.Description }}</div>
           </div>
         </div>
         <hr/>
@@ -169,27 +150,34 @@
     <div [@dialog] class="modal-dialog" role="document" style="margin: 0px;">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Writ Review</h5>
+          <h5 class="modal-title">Write Review</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form *ngIf="isLoggedIn()" class="form" role="form" accept-charset="UTF-8" id="login-nav" #f="ngForm" (ngSubmit)="submit(f)">
         <div class="modal-body">
           <div class="row">
             <div class="col-1" style="margin-bottom: 1px;">
               <label style="color: black;font-weight: bold">Title:</label>
             </div>
             <div class="col-10">
-              <input type="text" name="Text1" placeholder="Write title" style="height: 90%;width: 67%;border-radius: 5px;margin-left: 5px; ">
+              <input type="text" name="title" ngModel placeholder="Write title" style="height: 90%;width: 67%;border-radius: 5px;margin-left: 5px; ">
             </div>
           </div>
 
-          <textarea name="Text2" cols="60" rows="5" placeholder="Write Description" style="margin-top: 1%;"></textarea>
-          <app-star-rating></app-star-rating>
+          <textarea name="description" cols="60" rows="5" ngModel placeholder="Write Description" style="margin-top: 1%;"></textarea>
+          <app-star-rating name="rating" ngModel></app-star-rating>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="c('Close click')">Close</button>
+        </div>
+        </form>
+        <div class="modal-body" *ngIf="!isLoggedIn()">
+          <div class="row">
+            <h3>You Should login OR SignUp first to write a Review</h3>
+          </div>
         </div>
       </div>
       </div>

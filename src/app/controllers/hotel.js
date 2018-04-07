@@ -18,7 +18,7 @@ exports.GetALLHotels = function(req, res, next)
         obj: msg
       });
     });
-}
+};
 
 exports.GetHotels = function(req, res, next)
 {
@@ -37,7 +37,7 @@ exports.GetHotels = function(req, res, next)
         obj: msg
       });
     });
-}
+};
 
 
 exports.GetRecommendedHotels = function(req, res, next) {

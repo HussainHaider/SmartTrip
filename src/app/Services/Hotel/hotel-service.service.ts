@@ -21,7 +21,7 @@ export class HotelService {
         console.log(gethotels);
 
         for (const hotel of gethotels) {
-          this.transformedhotels.push(new Hotel(hotel.Name, hotel.Location, hotel.Price, hotel.Rating,  hotel.TotalRooms, hotel.FreeRooms, hotel.Image));
+          this.transformedhotels.push(new Hotel(hotel.Name, hotel.Location, hotel.Price, hotel.Rating,  hotel.TotalRooms, hotel.FreeRooms, hotel.Image, hotel._id));
         }
         this.hotels = this.transformedhotels;
         return this.transformedhotels;
@@ -37,7 +37,7 @@ export class HotelService {
         console.log(gethotels);
 
         for (const hotel of gethotels) {
-          this.transformedhotels.push(new Hotel(hotel.Name, hotel.Location, hotel.Price, hotel.Rating, hotel.TotalRooms, hotel.FreeRooms, hotel.Image));
+          this.transformedhotels.push(new Hotel(hotel.Name, hotel.Location, hotel.Price, hotel.Rating, hotel.TotalRooms, hotel.FreeRooms, hotel.Image, hotel._id));
         }
         this.hotels = this.transformedhotels;
         return this.transformedhotels;

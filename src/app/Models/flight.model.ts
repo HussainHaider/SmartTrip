@@ -10,9 +10,10 @@ export class Flight {
   Date: string;
   Time: string;
   Image: string;
+  ID: string;
 
 
-  constructor(Source: string, Destination: string, Class: string, Date: string, TotalSeats?: number, AvailableSeats?: number, Time?: string, Name?: string, Price?: string, Image?: string) {
+  constructor(Source: string, Destination: string, Class: string, Date: string, TotalSeats?: number, AvailableSeats?: number, Time?: string, Name?: string, Price?: string, Image?: string, ID?: string) {
     this.Name = Name;
     this.Price = Price;
     this.Source = Source;
@@ -23,5 +24,6 @@ export class Flight {
     this.Date = Date;
     this.Time = Time;
     this.Image = Image;
+    this.ID = ID;
   }
 }

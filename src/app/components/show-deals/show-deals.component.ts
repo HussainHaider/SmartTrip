@@ -29,13 +29,14 @@ export class ShowDealsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.router.paramMap.subscribe(params => {
-      console.log(params.get('name'));
-      this.Name = params.get('name');
-    });
+
   }
 
   ngOnInit() {
+    this.router.paramMap.subscribe(params => {
+      console.log('PARAMS:', params.get('name'));
+      this.Name = params.get('name');
+    });
 
     this.collection = this.dataService.data_things['obj'];
     console.log('Getting Data', this.collection);

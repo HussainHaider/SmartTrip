@@ -26,7 +26,7 @@ export class TravelComponent implements OnInit {
     this.headings = ['The lowest Travel prices', 'See the latest reviews', 'FlyScore'];
     this.texts = ['Find the best deals from hundreds of sites with just one search', 'Millions of travel reviews and photos from our global travel community', 'Use FlyScore to compare flights, then book the one that is right for you'];
 
-    this.flightService.GetPopularHotels(12, 13 ).subscribe((flights: Flight[]) => {
+    this.flightService.GetPopularFlights(12, 13 ).subscribe((flights: Flight[]) => {
       this.popularFlights = flights;
     });
   }

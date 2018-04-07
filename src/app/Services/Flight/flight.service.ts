@@ -13,15 +13,15 @@ export class FlightService {
 
 
   constructor(public http: Http) { }
-  GetPopularHotels(latitude, longitude) {
-    return this.http.get('http://localhost:3000/app/hotels/Lahore/5')
+  GetPopularFlights(latitude, longitude) {
+    return this.http.get('http://localhost:3000/app/flights/Lahore/Economy/popular')
       .map((response: Response) => {
         const getflights = response.json().obj;
         this.transformedFlights = [];
-        console.log(getflights);
+        console.log('flights' + getflights);
 
         for (const flight of getflights) {
-          this.transformedFlights.push(new Flight(flight.Source, flight.Destination, flight.Class, flight.Date, flight.TotalSeats, flight.AvailableSeats, flight.Time, flight.Name, flight.Price, flight.Image));
+          this.transformedFlights.push(new Flight(flight.Source, flight.Destination, flight.Class, flight.Date.substr(0, flight.Date.indexOf('T')), flight.TotalSeats, flight.AvailableSeats, flight.Time, flight.Name, flight.Price, flight.Image, flight._id));
         }
         this.flights = this.transformedFlights;
         return this.transformedFlights;
@@ -32,7 +32,7 @@ export class FlightService {
   GetHotels(flight: Flight) {
     const body = JSON.stringify(flight);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/hotels', body, {headers: headers})
+    return this.http.post('http://localhost:3000/app/flights', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }

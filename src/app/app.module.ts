@@ -38,6 +38,8 @@ import {HotelService} from './Services/Hotel/hotel-service.service';
 import {UserService} from './Services/User/user.service';
 import {RestaurantService} from './Services/Restaurant/restaurant.service';
 import {DataService} from './Services/Data/data.service';
+import {FlightService} from './Services/Flight/flight.service';
+import {ReviewService} from './Services/Review/review.service';
 
 
 @NgModule({
@@ -86,13 +88,13 @@ import {DataService} from './Services/Data/data.service';
       { path: 'BusinessUsers', component: BusinessUsersComponent, data: {depth: 1} },
       { path: 'AddItem', component: AddItemComponent, data: {depth: 1} },
       { path: 'ShowDeals/:name', component: ShowDealsComponent , data: {depth: 2}},
-      { path: 'review', component: ReviewComponent , data: {depth: 3}},
+      { path: 'review/:objID', component: ReviewComponent , data: {depth: 3}},
       { path: 'signup', component: SignupComponent , data: {depth: 2}},
       { path: 'payment', component: PaymentComponent , data: {depth: 4}},
       { path: '', redirectTo: '/hotel', pathMatch: 'full'}
     ])
   ],
-  providers: [ HotelService, UserService, RestaurantService, DataService ],
+  providers: [ HotelService, UserService, RestaurantService, DataService, FlightService, ReviewService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
