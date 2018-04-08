@@ -1,7 +1,7 @@
 const {Review} = require('../../../DBmodels/Review');
 
 exports.GetReviews = function (req, res, next) {
-  console.log("Reviews");
+  //console.log("Reviews");
 
   Review.find({Object_id: req.body.Object_id})
     .exec(function (err, msg) {
@@ -19,12 +19,12 @@ exports.GetReviews = function (req, res, next) {
 };
 
 exports.PostReviews = function (req, res, next) {
-  // console.log(req.body.User_id);
-  // console.log(req.body.Object_id);
-  // console.log(req.body.Rating);
-  // console.log(req.body.Title);
-  // console.log(req.body.Description);
-  // console.log(req.body.Date);
+  console.log(req.body.User_id);
+  console.log(req.body.Object_id);
+  console.log(req.body.Rating);
+  console.log(req.body.Title);
+  console.log(req.body.Description);
+  console.log(req.body.Date);
 
 
   let review = new Review({

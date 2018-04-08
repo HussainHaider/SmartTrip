@@ -27,6 +27,7 @@ import {ReviewService} from '../../Services/Review/review.service';
 export class ReviewComponent implements OnInit {
   stars = [1, 2, 3, 4];
   closeResult: string;
+  modalReference: NgbModalRef;
   private collectionReview = [];
   private reviewsNumbers = 0;
   private avgRating = 0;
@@ -36,9 +37,15 @@ export class ReviewComponent implements OnInit {
   Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   private calculateTwoStars = 0;
   private calculateOneStars = 0;
+  private userRating: number;
+  private objId;
   constructor(private modalService: NgbModal, private dataService: DataService, private userService: UserService, private router: ActivatedRoute, private route: Router, private reviewService: ReviewService) { }
 
   ngOnInit() {
+    this.router.paramMap.subscribe(params => {
+      console.log('PARAMS:', params.get('objID'));
+      this.objId = params.get('objID');
+    });
     this.collectionReview = this.dataService.data_things['obj'];
     console.log('Reviews', this.collectionReview);
     this.reviewsNumbers = this.collectionReview.length;
@@ -62,7 +69,8 @@ export class ReviewComponent implements OnInit {
     this.avgRating =  parseFloat(num);
   }
   open(content) {
-    this.modalService.open(content).result.then((result) => {
+    this.modalReference = this.modalService.open(content);
+    this.modalReference.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -79,7 +87,6 @@ export class ReviewComponent implements OnInit {
     }
   }
   getRepeater(ratingTotal) {
-    console.log('Rating', ratingTotal);
     return new Array(ratingTotal);
   }
   getAvgRating(num) {
@@ -89,25 +96,26 @@ export class ReviewComponent implements OnInit {
       return new Array(5 - Math.floor( this.avgRating ));
     }
   }
+  onNotify(message: number): void {
+    console.log('Rate value2', message);
+    this.userRating = message;
+  }
   submit(f) {
-    let objId;
+
     console.log('Review Values', f.value);
-    const userId = JSON.stringify(localStorage.getItem('userId'));
+    const userId = localStorage.getItem('userId');
     console.log('userId', userId);
     const currentDate = new Date();
     const date = this.Months[currentDate.getMonth()] + ',' + currentDate.getDate() + ',' + currentDate.getFullYear();
-    console.log('Date', date);
-    this.router.paramMap.subscribe(params => {
-      console.log('PARAMS:', params.get('objID'));
-      objId = params.get('name');
-    });
-    if (objId) {
-      const review = new Review(objId, userId, f.value.rating, f.value.title, f.value.description, date);
+    console.log('ObjID', this.objId);
+    if (userId) {
+      const review = new Review(this.objId, userId, this.userRating, f.value.title, f.value.description, date);
       this.reviewService.postReviews(review)
         .subscribe(
           data => {
             this.dataService.data_things = JSON.stringify(data);
-            this.reviewService.GetReviewsById(objId);
+            this.modalReference.close();
+
           },
           error => console.error(error)
         );

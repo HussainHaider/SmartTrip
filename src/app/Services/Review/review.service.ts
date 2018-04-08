@@ -19,6 +19,7 @@ export class ReviewService {
   }
   postReviews(review: Review) {
     const body = JSON.stringify(review);
+    console.log('PostReview Body', body);
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post('http://localhost:3000/app/postReview', body, {headers: headers})
       .map((response: Response) => response.json())

@@ -167,7 +167,7 @@
           </div>
 
           <textarea name="description" cols="60" rows="5" ngModel placeholder="Write Description" style="margin-top: 1%;"></textarea>
-          <app-star-rating name="rating" ngModel></app-star-rating>
+          <app-star-rating (notify)='onNotify($event)'></app-star-rating>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save changes</button>
