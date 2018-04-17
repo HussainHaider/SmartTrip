@@ -21,7 +21,7 @@ export class FlightService {
         console.log('flights' + getflights);
 
         for (const flight of getflights) {
-          this.transformedFlights.push(new Flight(flight.Source, flight.Destination, flight.Class, flight.Date.substr(0, flight.Date.indexOf('T')), flight.TotalSeats, flight.AvailableSeats, flight.Time, flight.Name, flight.Price, flight.Image, flight._id));
+          this.transformedFlights.push(new Flight(flight.Source, flight.Destination, flight.Class, flight.Date, flight.TotalSeats, flight.AvailableSeats, flight.Time, flight.Name, flight.Price, flight.Image, flight._id));
         }
         this.flights = this.transformedFlights;
         return this.transformedFlights;
@@ -29,7 +29,7 @@ export class FlightService {
       .catch((error: Response) => Observable.throw(error));
   }
 
-  GetHotels(flight: Flight) {
+  GetFlights(flight: Flight) {
     const body = JSON.stringify(flight);
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post('http://localhost:3000/app/flights', body, {headers: headers})

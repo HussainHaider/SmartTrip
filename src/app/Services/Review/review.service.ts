@@ -7,15 +7,17 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class ReviewService {
-
+  public reviews;
+  public data_things;
   constructor(public http: Http) { }
 
   GetReviewsById(review: Review) {
     const body = JSON.stringify(review);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/reviews', body, {headers: headers})
+    return this.data_things = this.http.post('http://localhost:3000/app/reviews', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
+
   }
   postReviews(review: Review) {
     const body = JSON.stringify(review);

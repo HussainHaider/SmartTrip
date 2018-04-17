@@ -3,11 +3,13 @@ import {SearchWidget} from '../SearchWidget';
 import { Hotel } from '../../Models/hotel.model';
 import {Restaurant} from '../../Models/restaurant.model';
 import { Flight } from '../../Models/flight.model';
+import { Road } from '../../Models/road.model';
 import {Router} from '@angular/router';
 import {HotelService} from '../../Services/Hotel/hotel-service.service';
 import {DataService} from '../../Services/Data/data.service';
 import {RestaurantService} from '../../Services/Restaurant/restaurant.service';
 import {FlightService} from '../../Services/Flight/flight.service';
+import {RoadService} from '../../Services/Road/road.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -34,7 +36,7 @@ export class SearchbarComponent implements OnInit, OnChanges,  AfterViewInit  {
   public No_of_Rooms = 0;
   public mySet = new Set();
   public  dt: any;
-  constructor(private router: Router, private hotelService: HotelService, private dataService: DataService, private restaurantService: RestaurantService, private flightService: FlightService) {
+  constructor(private router: Router, private hotelService: HotelService, private dataService: DataService, private restaurantService: RestaurantService, private flightService: FlightService, private roadService: RoadService) {
     this.No_of_Rooms = 0;
   }
   ngAfterViewInit() {
@@ -89,7 +91,7 @@ export class SearchbarComponent implements OnInit, OnChanges,  AfterViewInit  {
       const flight1 = new Flight ( f.value.depart, f.value.arrival, f.value.DepartClass, f.value.DepartDate);
       if (f.value.Round_radio) {
         const flight2 = new Flight ( f.value.arrival, f.value.depart, f.value.ArrivalClass, f.value.arrivalDate);
-        this.flightService.GetHotels(flight2)
+        this.flightService.GetFlights(flight2)
           .subscribe(
             data => {
               this.dataService.data_things = JSON.stringify(data);
@@ -97,11 +99,28 @@ export class SearchbarComponent implements OnInit, OnChanges,  AfterViewInit  {
             error => console.error(error)
           );
       }
-      this.flightService.GetHotels(flight1)
+      this.flightService.GetFlights(flight1)
         .subscribe(
           data => {
             this.dataService.data_things += JSON.stringify(data);
             this.router.navigate(['/ShowDeals', 'flight']);
+          },
+          error => console.error(error)
+        );
+    }
+  }
+  submitRoads(f) {
+    console.log('Print Roads');
+    console.log(f.value);
+    if (f.value.sourceCity) {
+      const road = new Road ( f.value.sourceCity, f.value.destinationCity, f.value.travelCompany, f.value.DeptDate, f.value.DeptTime);
+
+      this.roadService.GetRoads(road)
+        .subscribe(
+          data => {
+
+            this.dataService.data_things = JSON.stringify(data);
+            this.router.navigate(['/ShowDeals', 'Road']);
           },
           error => console.error(error)
         );

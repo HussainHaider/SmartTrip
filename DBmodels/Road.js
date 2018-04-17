@@ -30,10 +30,14 @@ let Road = mongoose.model('road', {
     required: true
   },
   Date: {
-    type: Date,
+    type: String,
     required: true
   },
   Time: {
+    type: String,
+    required: true
+  },
+  Image: {
     type: String,
     required: true
   }

@@ -1,10 +1,10 @@
-const {Flight} = require('../../../DBmodels/Flights');
+const {Road} = require('../../../DBmodels/Road');
 
 
 
-exports.GetALLFlights = function(req, res, next)
+exports.GetALLRoads = function(req, res, next)
 {
-  Flight.find()
+  Road.find()
     .exec(function(err, msg) {
       if (err) {
         return res.status(404).json({
@@ -19,13 +19,13 @@ exports.GetALLFlights = function(req, res, next)
     });
 }
 
-exports.GetFlight = function(req, res, next)
+exports.GetRoad = function(req, res, next)
 {
-  console.log("Flight");
+  console.log("Road");
   console.log(req.body.Source);
   console.log(req.body.Destination);
 
-  Flight.find({ $and: [ { Source: { '$regex' : req.body.Source } },{ Destination: { '$regex' : req.body.Destination } }, { Class: req.body.Class } ] })
+  Road.find({ $and: [ { Source: { '$regex' : req.body.Source } },{ Destination: { '$regex' : req.body.Destination } }, { Company: req.body.Company } ] })
         .exec(function(err, msg) {
           if (err) {
             return res.status(404).json({
@@ -41,32 +41,33 @@ exports.GetFlight = function(req, res, next)
 }
 
 
-exports.PostFlights = function(req, res, next){
-  let flight = new Flight({
+exports.PostRoad = function(req, res, next){
+  let road = new Road({
+
     Name: req.body.Name,
+    Company: req.body.Company,
     Price: req.body.Price,
-    Class: req.body.Class,
     Source: req.body.Source,
     Destination: req.body.Destination,
     TotalSeats: req.body.TotalSeats,
-    AvailableSeats: req.body.AvailableSeats,
+    AvaiableSeats: req.body.AvaiableSeats,
     Date: req.body.Date,
     Time: req.body.Time,
     Image: req.body.Image,
   });
 
-  flight.save().then((doc) => {
+  road.save().then((doc) => {
     res.send(doc);
   }, (e) => {
     res.status(400).send(e);
   });
 };
 
-exports.GetPopularFlights = function(req, res, next) {
+exports.GetPopularRoads = function(req, res, next) {
   //query with mongoose
   //console.log(req.params.loc);
 
-  Flight.find({"Source": { $ne: req.params.src },"Class": req.params.class}).limit(4)
+  Road.find({"Source": { $ne: req.params.src }}).limit(4)
     .exec(function(err, msg) {
       if (err) {
         return res.status(404).json({

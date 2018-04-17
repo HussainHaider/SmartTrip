@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnChanges, OnInit} from '@angular/core';
 import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { trigger, transition, style, animate } from '@angular/animations';
 import {DataService} from '../../Services/Data/data.service';
@@ -24,7 +24,7 @@ import {ReviewService} from '../../Services/Review/review.service';
     ])
   ]
 })
-export class ReviewComponent implements OnInit {
+export class ReviewComponent implements OnInit, AfterViewInit {
   stars = [1, 2, 3, 4];
   closeResult: string;
   modalReference: NgbModalRef;
@@ -40,6 +40,11 @@ export class ReviewComponent implements OnInit {
   private userRating: number;
   private objId;
   constructor(private modalService: NgbModal, private dataService: DataService, private userService: UserService, private router: ActivatedRoute, private route: Router, private reviewService: ReviewService) { }
+
+  ngAfterViewInit() {
+    console.log('AfterViewInit');
+  }
+
 
   ngOnInit() {
     this.router.paramMap.subscribe(params => {
@@ -86,9 +91,7 @@ export class ReviewComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
-  getRepeater(ratingTotal) {
-    return new Array(ratingTotal);
-  }
+
   getAvgRating(num) {
     if (num === 0) {
       return new Array(Math.floor( this.avgRating ));
@@ -113,9 +116,13 @@ export class ReviewComponent implements OnInit {
       this.reviewService.postReviews(review)
         .subscribe(
           data => {
-            this.dataService.data_things = JSON.stringify(data);
-            this.modalReference.close();
 
+            console.log('Collection_1:' + this.collectionReview);
+            console.log('Data is:' + data);
+            console.log('dataStrinfiy is:' + JSON.stringify(data));
+            this.collectionReview.push(data);
+            console.log('Collection_2:' + this.collectionReview);
+            this.modalReference.close();
           },
           error => console.error(error)
         );
@@ -123,6 +130,10 @@ export class ReviewComponent implements OnInit {
   }
   isLoggedIn() {
     return this.userService.isLoggedIn();
+  }
+
+  getRepeater(ratingTotal) {
+    return new Array(ratingTotal);
   }
 
 }

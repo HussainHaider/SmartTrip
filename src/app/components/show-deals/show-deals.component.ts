@@ -1,6 +1,8 @@
 import {Component, HostListener, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from '../../Services/Data/data.service';
+import {Review} from '../../Models/review.model';
+import {ReviewService} from '../../Services/Review/review.service';
 
 @Component({
   selector: 'app-show-deals',
@@ -25,7 +27,7 @@ export class ShowDealsComponent implements OnInit, OnChanges {
   collection = [];
   p = 1;
 
-  constructor(private router: ActivatedRoute, private dataService: DataService) {
+  constructor(private router: ActivatedRoute, private dataService: DataService, private reviewService: ReviewService, private route: Router) {
   }
 
   ngOnChanges() {
@@ -136,5 +138,20 @@ export class ShowDealsComponent implements OnInit, OnChanges {
   }
   dispose() {
     this.dbtimeslots = [];
+  }
+  SubmitDeals(obj) {
+    console.log('This Deal:', obj);
+    if (obj._id) {
+      const review = new Review(
+        obj._id );
+      this.reviewService.GetReviewsById(review)
+        .subscribe(
+          data => {
+            this.dataService.data_things = JSON.stringify(data);
+            this.route.navigate(['/review', obj._id ]);
+          },
+          error => console.error(error)
+        );
+    }
   }
 }

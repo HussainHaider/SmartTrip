@@ -75,7 +75,7 @@
             <h3>{{ d.Name }}</h3>
             <h3 style="text-align: right" *ngIf="d.Price">PKR {{ d.Price }}</h3>
             <h3 style="text-align: right" *ngIf="d.Type">{{ d.Type }}</h3>
-            <a class="btn btn-success btn-lg reviewLink" routerLink="/review">View Deals</a>
+            <a class="btn btn-success btn-lg reviewLink" (click)="SubmitDeals(d)">View Deals</a>
           </div>
 
           <div class="col-sm-4" style="margin-top: 5%">

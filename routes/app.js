@@ -8,6 +8,7 @@ const restaurant = require('../src/app/controllers/restaurant');
 const User = require('../src/app/controllers/User');
 const Flight = require('../src/app/controllers/flights');
 const Review = require('../src/app/controllers/review');
+const Road = require('../src/app/controllers/road');
 
 /* GET home page. */
 router.post('/todos', (req, res) => {
@@ -55,4 +56,10 @@ router.post('/postFlights', Flight.PostFlights);
 
 router.post('/reviews', Review.GetReviews);
 router.post('/postReview', Review.PostReviews);
+
+
+router.get('/roads/all', Road.GetALLRoads);
+router.post('/roads', Road.GetRoad);
+router.get('/roads/:src', Road.GetPopularRoads);
+router.post('/postRoads', Road.PostRoad);
 module.exports = router;

@@ -169,25 +169,30 @@
               </form>
             </tab>
             <tab title="Road">
-              <form class="form">
+              <form class="form" #f4="ngForm" (ngSubmit)="submitRoads(f4)">
                 <div class="form-group">
                   <div class="container">
                     <div class="row">
-                      <div class="col-md-4"  id="myForm_2">
+                      <div class="col-md-3"  id="myForm_2">
                         <label for="inputAddress2">City Name</label>
-                        <input type="text" [attr.list]="Listname" class="form-control" placeholder="Name" (keyup)="onKey($event)">
+                        <input type="text" [attr.list]="Listname" ngModel name="sourceCity" class="form-control" placeholder="Name" (keyup)="onKey($event)">
 
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3" >
+                        <label for="inputAddress2">Destination City Name</label>
+                        <input type="text" [attr.list]="Listname" ngModel name="destinationCity" class="form-control" placeholder="Name" (keyup)="onKey($event)">
+
+                      </div>
+                      <div class="col-md-3">
                         <label for="inputAddress2">Travel Company</label><br>
-                        <select class='select-option' name="drop" required [(ngModel)]='tCompanyOptionSelected' (ngModelChange)='onOptionsSelected($event)' style="width: 80%">
+                        <select class='select-option' name="travelCompany" required [(ngModel)]='tCompanyOptionSelected' (ngModelChange)='onOptionsSelected($event)' style="width: 80%">
                           <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
                         </select>
                       </div>
 
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <label for="inputAddress2">Seats</label><br>
-                        <select class='select-option' name="drop" required [(ngModel)]='RoadSeatsOptionSelected' (ngModelChange)='onOptionsSelected($event)' style="width: 80%">
+                        <select class='select-option' name="Seats" required [(ngModel)]='RoadSeatsOptionSelected' (ngModelChange)='onOptionsSelected($event)' style="width: 80%">
                           <option class='option' *ngFor='let option of Seatsoptions' [value]="option">{{option}}</option>
                         </select>
                       </div>
@@ -202,7 +207,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class='fa fa-calendar' aria-hidden="true"></i></span>
                       </div>
-                      <input type="date" class="form-control" aria-label="Amount (to the nearest dollar)">
+                      <input type="date" name="DeptDate" ngModel class="form-control" aria-label="Amount (to the nearest dollar)">
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -211,12 +216,12 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class='fa fa-clock-o' aria-hidden="true"></i></span>
                       </div>
-                      <input type="time" class="form-control" aria-label="Amount (to the nearest dollar)">
+                      <input type="time" name="DeptTime" ngModel class="form-control" aria-label="Amount (to the nearest dollar)">
                     </div>
                   </div>
                   <div class="col-md-4 searchbtn">
                     <div>
-                      <a class="btn btn-info" [routerLink]="['/ShowDeals','Road']">Search</a>
+                      <button type="submit" class="btn btn-info">Search</button>
                     </div>
                   </div>
                 </div>

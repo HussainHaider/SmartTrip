@@ -40,6 +40,7 @@ import {RestaurantService} from './Services/Restaurant/restaurant.service';
 import {DataService} from './Services/Data/data.service';
 import {FlightService} from './Services/Flight/flight.service';
 import {ReviewService} from './Services/Review/review.service';
+import {RoadService} from './Services/Road/road.service';
 
 
 @NgModule({
@@ -60,7 +61,7 @@ import {ReviewService} from './Services/Review/review.service';
     ThingsToDoComponent,
     BusinessUsersComponent,
     AddItemComponent,
-    RecommendPopularComponent,
+    RecommendPopularComponent
   ],
   imports: [
     HttpModule,
@@ -94,7 +95,7 @@ import {ReviewService} from './Services/Review/review.service';
       { path: '', redirectTo: '/hotel', pathMatch: 'full'}
     ])
   ],
-  providers: [ HotelService, UserService, RestaurantService, DataService, FlightService, ReviewService ],
+  providers: [ HotelService, UserService, RestaurantService, DataService, FlightService, ReviewService, RoadService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
