@@ -63,4 +63,12 @@ export class HotelService {
       })
       .catch((error: Response) => Observable.throw(error));
   }
+
+  PostHotels(hotel: Hotel) {
+    const body = JSON.stringify(hotel);
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post('http://localhost:3000/app/PostHotels', body, {headers: headers})
+      .map((response: Response) => response.json())
+      .catch((error: Response) => Observable.throw(error.json()));
+  }
 }
