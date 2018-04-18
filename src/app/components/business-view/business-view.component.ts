@@ -5,7 +5,7 @@ import {UserService} from '../../Services/User/user.service';
 import {DataService} from '../../Services/Data/data.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ReviewService} from '../../Services/Review/review.service';
-import {BusinessService} from "../../Services/Business/business.service";
+import {BusinessService} from '../../Services/Business/business.service';
 
 @Component({
   selector: 'app-business-view',

@@ -15,6 +15,7 @@ export class BusinessService {
   private transformed: Array<string>;
   private hotels: Hotel[] = [];
   private reviews: Review[] = [];
+  collection: any = [];
 
 
   constructor(public http: Http, private dataService: DataService, private reviewService: ReviewService) { }
@@ -60,35 +61,31 @@ export class BusinessService {
   }
 
   GetBusinessViews(UID) {
-    const body = JSON.stringify({'ID': UID});
+    console.log('User ID:' + UID);
+    const body = JSON.stringify({'User_id': UID});
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post('http://localhost:3000/app/business', body, {headers: headers})
       .map((response: Response) => {
         const getObjectsID = response.json().obj;
         this.transformed = [];
         for (const objects of getObjectsID) {
-          console.log('objects' + objects.Object_id);
+          console.log('objects:' + objects.Object_id);
 
           const review = new Review(
             objects.Object_id );
           this.reviewService.GetReviewsById(review)
             .subscribe(
               data => {
-                console.log('SP' + data['obj'][0]);
-                //this.reviews.push(new Review(data['obj'][0].Name, data['obj'][0].Location, data['obj'][0].Price, data['obj'][0].Rating,  data['obj'][0].TotalRooms, data['obj'][0].FreeRooms, data['obj'][0].Image, data['obj'][0]._id));
+                this.collection = JSON.stringify(data['obj']);
+                for (let i = 0; i < 4; i++) {
+                  this.reviews.push(new Review(this.collection['obj'][i].Object_id, this.collection['obj'][i].User_id, this.collection['obj'][i].Rating, this.collection['obj'][i].Title,  this.collection['obj'][i].Date, this.collection['obj'][i]._id));
+                }
+
               },
               error => console.error(error)
             );
         }
       })
-      .catch((error: Response) => Observable.throw(error.json()));
-  }
-
-  GetReviewsByID(review: Review) {
-    const body = JSON.stringify(review);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/reviews', body, {headers: headers})
-      .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
 }
