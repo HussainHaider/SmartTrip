@@ -11,7 +11,6 @@ export class HotelService {
   private Stars = [];
   private transformedhotels: Hotel[] = [];
 
-
   constructor(public http: Http) { }
   GetRecommendedHotels(latitude, longitude) {
     return this.http.get('http://localhost:3000/app/hotels/Lahore/5')

@@ -41,6 +41,8 @@ import {DataService} from './Services/Data/data.service';
 import {FlightService} from './Services/Flight/flight.service';
 import {ReviewService} from './Services/Review/review.service';
 import {RoadService} from './Services/Road/road.service';
+import { BusinessViewComponent } from './components/business-view/business-view.component';
+import {BusinessService} from './Services/Business/business.service';
 
 
 @NgModule({
@@ -61,7 +63,8 @@ import {RoadService} from './Services/Road/road.service';
     ThingsToDoComponent,
     BusinessUsersComponent,
     AddItemComponent,
-    RecommendPopularComponent
+    RecommendPopularComponent,
+    BusinessViewComponent
   ],
   imports: [
     HttpModule,
@@ -91,11 +94,12 @@ import {RoadService} from './Services/Road/road.service';
       { path: 'ShowDeals/:name', component: ShowDealsComponent , data: {depth: 2}},
       { path: 'review/:objID', component: ReviewComponent , data: {depth: 3}},
       { path: 'signup', component: SignupComponent , data: {depth: 2}},
+      { path: 'BusinessView/:userId', component: BusinessViewComponent , data: {depth: 2}},
       { path: 'payment', component: PaymentComponent , data: {depth: 4}},
       { path: '', redirectTo: '/hotel', pathMatch: 'full'}
     ])
   ],
-  providers: [ HotelService, UserService, RestaurantService, DataService, FlightService, ReviewService, RoadService ],
+  providers: [ HotelService, UserService, RestaurantService, DataService, FlightService, ReviewService, RoadService, BusinessService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

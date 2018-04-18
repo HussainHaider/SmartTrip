@@ -71,5 +71,9 @@ export class NavBarComponent implements OnInit {
     this.userService.logout();
     this.router.navigateByUrl('/hotel');
   }
+  businessCall() {
+    const user_id = localStorage.getItem('userId');
+    this.router.navigate(['/BusinessView', user_id]);
+  }
 
 }

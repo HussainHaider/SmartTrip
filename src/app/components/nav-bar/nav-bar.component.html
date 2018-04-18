@@ -21,6 +21,9 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/thingsToDo">Things to do</a>
         </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" *ngIf="isBusinessUser()" (click)="businessCall()">Business View</a>
+        </li>
         <!--<li class="nav-item" routerLinkActive="active">-->
           <!--<a class="nav-link" routerLink="/BusinessUsers"><span class="buser"></span></a>-->
         <!--</li>-->
@@ -34,7 +37,7 @@
       </ul>
       <form class="form-inline mt-2 mt-md-0">
         <a class="btn"><img src="/assets/images/chat.png" /></a>
-        <button *ngIf="isLoggedIn()" class="btn btn-outline-success my-2 my-sm-0" (click)="open(content)"  (click)="onLogout()" style="margin-left: 5px;" type="submit">Log Out</button>
+        <button *ngIf="isLoggedIn()" class="btn btn-outline-success my-2 my-sm-0" (click)="onLogout()" style="margin-left: 5px;" type="submit">Log Out</button>
         <button *ngIf="!isLoggedIn()" class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/signup">Sign Up</button>
         <button *ngIf="!isLoggedIn()" class="btn btn-outline-success my-2 my-sm-0" (click)="open(content)" style="margin-left: 5px;" type="submit">Log In</button>
       </form>

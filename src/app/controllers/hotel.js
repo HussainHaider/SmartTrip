@@ -39,6 +39,25 @@ exports.GetHotels = function(req, res, next)
     });
 };
 
+exports.GetHotelsById = function(req, res, next)
+{
+
+  console.log(req.body.ID);
+  Hotel.find({ _id: req.body.ID })
+    .exec(function(err, msg) {
+      if (err) {
+        return res.status(404).json({
+          message: 'Resource not found',
+          error: err
+        });
+      }
+      return res.status(200).json({
+        message: 'Success',
+        obj: msg
+      });
+    });
+};
+
 
 exports.GetRecommendedHotels = function(req, res, next) {
   //query with mongoose

@@ -9,6 +9,7 @@ const User = require('../src/app/controllers/User');
 const Flight = require('../src/app/controllers/flights');
 const Review = require('../src/app/controllers/review');
 const Road = require('../src/app/controllers/road');
+const Business = require('../src/app/controllers/Business');
 
 /* GET home page. */
 router.post('/todos', (req, res) => {
@@ -35,6 +36,7 @@ router.get('/todos', (req, res) => {
 
 router.get('/hotels/all', hotel.GetALLHotels);
 router.post('/hotels', hotel.GetHotels);
+router.post('/hotelsID', hotel.GetHotelsById);
 router.get('/hotels/:loc/:rating', hotel.GetRecommendedHotels);
 router.get('/hotels/:loc/:rating/:type', hotel.GetPopularHotels);
 router.post('/postHotels', hotel.PostHotels);
@@ -62,4 +64,12 @@ router.get('/roads/all', Road.GetALLRoads);
 router.post('/roads', Road.GetRoad);
 router.get('/roads/:src', Road.GetPopularRoads);
 router.post('/postRoads', Road.PostRoad);
+
+
+router.post('/business', Business.GetBusiness);
+router.get('/businessOptions', Business.GetBusinessOptions);
+router.post('/postBusiness', Business.PostBusiness);
+router.post('/updateBusiness', Business.UpdateBusiness);
+
+
 module.exports = router;
