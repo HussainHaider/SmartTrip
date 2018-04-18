@@ -51,6 +51,7 @@ export class NavBarComponent implements OnInit {
           console.log('DATA is here:', JSON.stringify(data));
           localStorage.setItem('token', data.token);
           localStorage.setItem('userId', data.userId);
+          localStorage.setItem('BusinessUser', data.BusinessUser);
           this.modalReference.close();
           this.router.navigateByUrl('/hotel');
         },
@@ -61,6 +62,11 @@ export class NavBarComponent implements OnInit {
   isLoggedIn() {
     return this.userService.isLoggedIn();
   }
+
+  isBusinessUser() {
+    return this.userService.isBusinessUser();
+  }
+
   onLogout() {
     this.userService.logout();
     this.router.navigateByUrl('/hotel');

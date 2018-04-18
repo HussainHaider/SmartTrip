@@ -35,6 +35,8 @@ export class UserService {
   isLoggedIn() {
     return localStorage.getItem('token') !== null;
   }
-
+  isBusinessUser() {
+    return localStorage.getItem('BusinessUser');
+  }
 
 }

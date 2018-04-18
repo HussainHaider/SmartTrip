@@ -10,14 +10,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
+  BusinessValue =  'true';
   constructor(private userService: UserService, private router: Router) {
   }
 
   submit(f) {
     console.log(f.value);
+    if (f.value.Business !== true) {
+      this.BusinessValue = 'false';
+    }
     const user = new User(
-       f.value.email, f.value.password, f.value.name, f.value.address, f.value.city, f.value.state, f.value.phone, f.value.age, f.value.gender, 'false',
+       f.value.email, f.value.password, f.value.name, f.value.address, f.value.city, f.value.state, f.value.phone, f.value.age, f.value.gender, this.BusinessValue
     );
     this.userService.signup(user)
       .subscribe(
