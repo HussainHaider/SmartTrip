@@ -15,7 +15,7 @@ export class ReviewService {
     const body = JSON.stringify(review);
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.data_things = this.http.post('http://localhost:3000/app/reviews', body, {headers: headers})
-      .map((response: Response) => console.log('Response:' + JSON.stringify(response.json())))
+      .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
 
   }

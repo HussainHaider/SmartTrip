@@ -60,11 +60,18 @@ export class NavBarComponent implements OnInit {
     console.log('hello4');
   }
   isLoggedIn() {
+    console.log('Log IN:' + this.userService.isLoggedIn());
     return this.userService.isLoggedIn();
   }
 
   isBusinessUser() {
-    return this.userService.isBusinessUser();
+    console.log('Business User:' + this.userService.isBusinessUser());
+    if (this.userService.isBusinessUser() === null || this.userService.isBusinessUser() === 'false') {
+      console.log('Print2');
+      return false;
+    } else {
+      return true;
+    }
   }
 
   onLogout() {

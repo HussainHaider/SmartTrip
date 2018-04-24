@@ -26,7 +26,9 @@ export class BusinessViewComponent implements OnInit {
   private calculateOneStars = 0;
   private userRating: number;
   private userId;
-  constructor(private dataService: DataService, private userService: UserService, private router: ActivatedRoute, private route: Router, private businessService: BusinessService) { }
+  private reviews: Review[] = [];
+  collection: any = [];
+  constructor(private dataService: DataService, private userService: UserService, private reviewService: ReviewService, private router: ActivatedRoute, private route: Router, private businessService: BusinessService) { }
 
 
   ngOnInit() {
@@ -37,32 +39,45 @@ export class BusinessViewComponent implements OnInit {
     this.businessService.GetBusinessViews(this.userId )
       .subscribe(
         data => {
-          console.log('Chal Gaya2');
-          this.collectionReview = this.businessService.getReviews();
+          console.log('YA kuch kr dy:', data);
+          const review = new Review(
+            data );
+          this.reviewService.GetReviewsById(review)
+            .subscribe(
+              data_ => {
+                console.log('Kr k daka dy ');
+                this.collection = data_['obj'];
+                for (let i = 0; i < data_['obj'].length; i++) {
+                  console.log('Rating' + this.collection[i].Rating);
+                  this.reviews.push(new Review(this.collection[i].Object_id, this.collection[i].User_id, this.collection[i].Rating, this.collection[i].Title,  this.collection[i].Date, this.collection[i]._id));
+                }
+                this.collectionReview = this.reviews;
+                console.log('Reviews', this.collectionReview);
+                this.reviewsNumbers = this.collectionReview.length;
+                let sum = 0;
+                for (let i = 0; i < this.reviewsNumbers; i++ ) {
+                  if (this.collectionReview[i].Rating === 5) {
+                    this.calculateFiveStars++;
+                  } else if (this.collectionReview[i].Rating === 4) {
+                    this.calculateFourStars++;
+                  } else if (this.collectionReview[i].Rating === 3) {
+                    this.calculateThreeStars++;
+                  } else if (this.collectionReview[i].Rating === 2) {
+                    this.calculateTwoStars++;
+                  } else if (this.collectionReview[i].Rating === 1) {
+                    this.calculateOneStars++;
+                  }
+                  sum += this.collectionReview[i].Rating;
+
+                }
+                const num = (sum / this.reviewsNumbers).toFixed( 1 );
+                this.avgRating =  parseFloat(num);
+                },
+              error => console.error(error)
+            );
         },
         error => console.error(error)
       );
-//    this.collectionReview = this.dataService.data_things['obj'];
-    console.log('Reviews', this.collectionReview);
-    this.reviewsNumbers = this.collectionReview.length;
-    let sum = 0;
-    for (let i = 0; i < this.reviewsNumbers; i++ ) {
-      if (this.collectionReview[i].Rating === 5) {
-        this.calculateFiveStars++;
-      } else if (this.collectionReview[i].Rating === 4) {
-        this.calculateFourStars++;
-      } else if (this.collectionReview[i].Rating === 3) {
-        this.calculateThreeStars++;
-      } else if (this.collectionReview[i].Rating === 2) {
-        this.calculateTwoStars++;
-      } else if (this.collectionReview[i].Rating === 1) {
-        this.calculateOneStars++;
-      }
-      sum += this.collectionReview[i].Rating;
-
-    }
-    const num = (sum / this.reviewsNumbers).toFixed( 1 );
-    this.avgRating =  parseFloat(num);
   }
 
 

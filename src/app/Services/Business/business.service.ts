@@ -50,6 +50,7 @@ export class BusinessService {
     return this.hotels;
   }
   getReviews() {
+    console.log('Length is:' + this.reviews.length);
     return this.reviews;
   }
   UpdateObject(business: Business) {
@@ -65,27 +66,7 @@ export class BusinessService {
     const body = JSON.stringify({'User_id': UID});
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post('http://localhost:3000/app/business', body, {headers: headers})
-      .map((response: Response) => {
-        const getObjectsID = response.json().obj;
-        this.transformed = [];
-        for (const objects of getObjectsID) {
-          console.log('objects:' + objects.Object_id);
-
-          const review = new Review(
-            objects.Object_id );
-          this.reviewService.GetReviewsById(review)
-            .subscribe(
-              data => {
-                this.collection = JSON.stringify(data['obj']);
-                for (let i = 0; i < 4; i++) {
-                  this.reviews.push(new Review(this.collection['obj'][i].Object_id, this.collection['obj'][i].User_id, this.collection['obj'][i].Rating, this.collection['obj'][i].Title,  this.collection['obj'][i].Date, this.collection['obj'][i]._id));
-                }
-
-              },
-              error => console.error(error)
-            );
-        }
-      })
+      .map((response: Response) =>   response.json().obj[0].Object_id)
       .catch((error: Response) => Observable.throw(error.json()));
   }
 }
