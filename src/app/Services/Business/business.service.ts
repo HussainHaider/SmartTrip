@@ -23,7 +23,7 @@ export class BusinessService {
   GetBusinessOptions() {
     console.log('Hello GetBusinessOptions');
 
-     return this.http.get('http://localhost:3000/app/businessOptions')
+     return this.http.get('https://localhost:3000/app/businessOptions')
       .map((response: Response) => {
         const getObjectsID = response.json().obj;
         this.transformed = [];
@@ -42,7 +42,7 @@ export class BusinessService {
   GetHotelsByID(ID) {
     const body = JSON.stringify({'ID': ID});
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/hotelsID', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/hotelsID', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -56,7 +56,7 @@ export class BusinessService {
   UpdateObject(business: Business) {
     const body = JSON.stringify(business);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/updateBusiness', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/updateBusiness', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -65,7 +65,7 @@ export class BusinessService {
     console.log('User ID:' + UID);
     const body = JSON.stringify({'User_id': UID});
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/business', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/business', body, {headers: headers})
       .map((response: Response) =>   response.json().obj[0].Object_id)
       .catch((error: Response) => Observable.throw(error.json()));
   }

@@ -14,7 +14,7 @@ export class UserService {
   signup(user: User) {
     const body = JSON.stringify(user);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/signUp', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/signUp', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -23,7 +23,7 @@ export class UserService {
     console.log('hello5');
     const body = JSON.stringify(user);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/signIn', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/signIn', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }

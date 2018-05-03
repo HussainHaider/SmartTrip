@@ -12,7 +12,7 @@ export class RoadService {
   constructor(public http: Http) { }
 
   GetPopularRoads(latitude, longitude) {
-    return this.http.get('http://localhost:3000/app/roads/Lahore')
+    return this.http.get('https://localhost:3000/app/roads/Lahore')
       .map((response: Response) => {
         const getRoads = response.json().obj;
         this.transformedRoads = [];
@@ -30,7 +30,7 @@ export class RoadService {
   GetRoads(road: Road) {
     const body = JSON.stringify(road);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/roads', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/roads', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }

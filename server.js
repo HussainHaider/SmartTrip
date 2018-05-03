@@ -2,11 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
-
+const https = require('https');
+const fs = require('fs');
 const app = express();
 
 // API file for interacting with MongoDB
 const routeApp = require('./routes/app');
+
+const httpsOptions = {
+  key: fs.readFileSync('./Certificate/key.pem'),
+  cert: fs.readFileSync('./Certificate/cert.pem')
+};
 
 // Parsers
 app.use(bodyParser.json());
@@ -28,6 +34,11 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
-server.listen(port, () => console.log(`Running on localhost:${port}`));
+// server.listen(port, () => console.log(`Running on localhost:${port}`));
+
+const server = https.createServer(httpsOptions, app)
+  .listen(port, () => {
+    console.log('Running on localhost: ' + port)
+  });

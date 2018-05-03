@@ -10,7 +10,7 @@ export class RestaurantService {
 
   constructor(public http: Http) { }
   GetRecommendedRestaurants(latitude, longitude) {
-    return this.http.get('http://localhost:3000/app/restaurants/Lahore/5')
+    return this.http.get('https://localhost:3000/app/restaurants/Lahore/5')
       .map((response: Response) => {
         const getRestaurant = response.json().obj;
         this.transformedRestaurants = [];
@@ -26,7 +26,7 @@ export class RestaurantService {
   }
 
   GetPopularRestaurants(latitude, longitude) {
-    return this.http.get('http://localhost:3000/app/restaurants/Lahore/5/popular')
+    return this.http.get('https://localhost:3000/app/restaurants/Lahore/5/popular')
       .map((response: Response) => {
         const getRestaurant = response.json().obj;
         this.transformedRestaurants = [];
@@ -44,7 +44,7 @@ export class RestaurantService {
   GetRestaurants(restaurant: Restaurant) {
     const body = JSON.stringify(restaurant);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/restaurants', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/restaurants', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -63,7 +63,7 @@ export class RestaurantService {
   PostRestaurants(restaurant: Restaurant) {
     const body = JSON.stringify(restaurant);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/postRestaurants', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/postRestaurants', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }

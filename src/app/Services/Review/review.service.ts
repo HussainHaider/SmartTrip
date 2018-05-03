@@ -14,7 +14,7 @@ export class ReviewService {
   GetReviewsById(review: Review) {
     const body = JSON.stringify(review);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.data_things = this.http.post('http://localhost:3000/app/reviews', body, {headers: headers})
+    return this.data_things = this.http.post('https://localhost:3000/app/reviews', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
 
@@ -23,7 +23,7 @@ export class ReviewService {
     const body = JSON.stringify(review);
     console.log('PostReview Body', body);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/postReview', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/postReview', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }

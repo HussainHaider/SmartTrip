@@ -13,7 +13,7 @@ export class HotelService {
 
   constructor(public http: Http) { }
   GetRecommendedHotels(latitude, longitude) {
-    return this.http.get('http://localhost:3000/app/hotels/Lahore/5')
+    return this.http.get('https://localhost:3000/app/hotels/Lahore/5')
       .map((response: Response) => {
         const gethotels = response.json().obj;
         this.transformedhotels = [];
@@ -29,7 +29,7 @@ export class HotelService {
   }
 
   GetPopularHotels(latitude, longitude) {
-    return this.http.get('http://localhost:3000/app/hotels/Lahore/5/popular')
+    return this.http.get('https://localhost:3000/app/hotels/Lahore/5/popular')
       .map((response: Response) => {
         const gethotels = response.json().obj;
         this.transformedhotels = [];
@@ -47,7 +47,7 @@ export class HotelService {
   GetHotels(hotel: Hotel) {
     const body = JSON.stringify(hotel);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/hotels', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/hotels', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -66,7 +66,7 @@ export class HotelService {
   PostHotels(hotel: Hotel) {
     const body = JSON.stringify(hotel);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/app/PostHotels', body, {headers: headers})
+    return this.http.post('https://localhost:3000/app/PostHotels', body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
