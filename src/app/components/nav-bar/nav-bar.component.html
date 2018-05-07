@@ -62,7 +62,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="social-buttons">
-              <a style="border: 1px solid" href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+              <a style="border: 1px solid" class="btn btn-fb"  (click)="socialSignIn('facebook')" ><i class="fa fa-facebook"></i> Facebook</a>
               <a style="border: 1px solid" href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a> </div> or
             <form class="form" role="form" accept-charset="UTF-8" id="login-nav" #f="ngForm" (ngSubmit)="submit(f)">
               <div class="form-group">

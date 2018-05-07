@@ -30,6 +30,7 @@
     "angular-rangeslider": "0.0.14",
     "angular-resize-event": "^0.4.1",
     "angular-star-rating": "^3.0.8",
+    "angular5-social-login": "^1.0.9",
     "asyncawait": "^1.0.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",

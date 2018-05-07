@@ -3,11 +3,11 @@ let mongoose = require('mongoose');
 let User = mongoose.model('user', {
   Name: {
     type: String,
-    required: true
+    required: false
   },
   Phone: {
     type: String,
-    required: true
+    required: false
   },
   Email: {
     type: String,
@@ -15,15 +15,15 @@ let User = mongoose.model('user', {
   },
   Address: {
     type: String,
-    required: true
+    required: false
   },
   City: {
     type: String,
-    required: true
+    required: false
   },
   State: {
     type: String,
-    required: true
+    required: false
   },
   Password: {
     type: String,
@@ -31,16 +31,21 @@ let User = mongoose.model('user', {
   },
   Gender: {
     type: String,
-    required: true
+    required: false
   },
   Age: {
     type: Number,
-    required: true
+    required: false
    },
   BusinessUser: {
      type: String,
      required: true
-   }
+   },
+  _id: {
+    type: String,
+    default: null,
+    required: false
+  }
 });
 
 module.exports = {User};

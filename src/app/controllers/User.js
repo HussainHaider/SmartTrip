@@ -1,7 +1,7 @@
 const {User} = require('../../../DBmodels/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const mongoose = require('mongoose');
 
 exports.CreateUser = function (req, res, next) {
   // console.log(req.body.Name);
@@ -25,8 +25,14 @@ exports.CreateUser = function (req, res, next) {
     Password: bcrypt.hashSync(req.body.Password, 10),
     Gender: req.body.Gender,
     Age: req.body.Age,
-    BusinessUser: req.body.BusinessUser
+    BusinessUser: req.body.BusinessUser,
+    _id: null
   });
+
+  if (req.body.ID!==undefined){
+    console.log('ID' + req.body.ID);
+
+  }
 
   user.save(function (err, result) {
     if (err) {
@@ -74,6 +80,43 @@ exports.AccessToUser = function (req, res, next) {
       token: token,
       userId: user._id,
       BusinessUser: user.BusinessUser
+    });
+  });
+
+};
+
+
+exports.FbUser = function (req, res, next) {
+
+  let user = new User({
+    Name: req.body.Name,
+    Phone: req.body.Phone,
+    Email: req.body.Email,
+    Address: req.body.Address,
+    City: req.body.City,
+    State: req.body.State,
+    Password: bcrypt.hashSync(req.body.Password, 10),
+    Gender: req.body.Gender,
+    Age: req.body.Age,
+    BusinessUser: req.body.BusinessUser,
+    _id: req.body.ID
+  });
+
+  if (req.body.ID!==undefined){
+    console.log('ID' + req.body.ID);
+
+  }
+
+  user.save(function (err, result) {
+    if (err) {
+      return res.status(500).json({
+        message: 'An error occurred',
+        error: err
+      });
+    }
+    res.status(201).json({
+      message: 'User created',
+      obj: result
     });
   });
 

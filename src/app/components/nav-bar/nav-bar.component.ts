@@ -3,6 +3,11 @@ import {ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-boot
 import {User} from '../../Models/user.model';
 import {Router} from '@angular/router';
 import {UserService} from '../../Services/User/user.service';
+import {
+  AuthService,
+  FacebookLoginProvider,
+  GoogleLoginProvider
+} from 'angular5-social-login';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,7 +19,7 @@ export class NavBarComponent implements OnInit {
   closeResult: string;
   isExpanded: boolean;
   imageUrl = '/assets/images/Hotal.png';
-  constructor(private modalService: NgbModal, private userService: UserService, private router: Router) {
+  constructor(private modalService: NgbModal, private userService: UserService, private router: Router,  private socialAuthService: AuthService) {
   }
 
   ngOnInit() {
@@ -82,5 +87,31 @@ export class NavBarComponent implements OnInit {
     const user_id = localStorage.getItem('userId');
     this.router.navigate(['/BusinessView', user_id]);
   }
+  public socialSignIn(socialPlatform: string) {
+    let socialPlatformProvider;
+    if (socialPlatform === 'facebook') {
+      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    }
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      (userData) => {
+        console.log(socialPlatform + ' sign in data : ' , userData);
+        const user = new User(
+          userData.email, 'unknow', userData.name, '', '', '', '', '', '', 'false', userData.id
+      );
+        console.log('User Data is:' + user);
+        this.userService.signup(user, 'fb')
+          .subscribe(
+            data => {
 
+              localStorage.setItem('token', userData.token);
+              localStorage.setItem('userId', userData.id);
+              localStorage.setItem('BusinessUser', 'false');
+              this.modalReference.close();
+              this.router.navigateByUrl('/hotel');
+            },
+            error => console.error(error)
+          );
+      }
+    );
+  }
 }

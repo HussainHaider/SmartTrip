@@ -8,7 +8,12 @@ import {MatButtonModule} from '@angular/material';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatMenuModule} from '@angular/material/menu';
-
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from 'angular5-social-login';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -44,6 +49,17 @@ import {RoadService} from './Services/Road/road.service';
 import { BusinessViewComponent } from './components/business-view/business-view.component';
 import {BusinessService} from './Services/Business/business.service';
 
+// Configs
+export function getAuthServiceConfigs() {
+  const config = new AuthServiceConfig(
+    [
+      {
+        id: FacebookLoginProvider.PROVIDER_ID,
+        provider: new FacebookLoginProvider('170544920278683')
+      }
+    ]);
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -67,6 +83,7 @@ import {BusinessService} from './Services/Business/business.service';
     BusinessViewComponent
   ],
   imports: [
+    SocialLoginModule,
     HttpModule,
     CommonModule,
     BrowserModule,
@@ -99,7 +116,12 @@ import {BusinessService} from './Services/Business/business.service';
       { path: '', redirectTo: '/hotel', pathMatch: 'full'}
     ])
   ],
-  providers: [ HotelService, UserService, RestaurantService, DataService, FlightService, ReviewService, RoadService, BusinessService ],
+  providers: [ HotelService, UserService, RestaurantService, DataService, FlightService, ReviewService, RoadService, BusinessService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

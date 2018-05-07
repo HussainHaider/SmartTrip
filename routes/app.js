@@ -42,6 +42,7 @@ router.get('/hotels/:loc/:rating/:type', hotel.GetPopularHotels);
 router.post('/postHotels', hotel.PostHotels);
 
 router.post('/signUp', User.CreateUser);
+router.post('/FbSignUp', User.FbUser);
 router.post('/signIn', User.AccessToUser);
 
 router.get('/restaurants/all', restaurant.GetALLRestaurants);
