@@ -1,5 +1,3 @@
-# Demo
-https://smarttrip-f6dc6.firebaseapp.com
 
 # SmartTrip
 
